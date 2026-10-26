@@ -39,7 +39,7 @@ for f in sorted(ASSETS.glob("*.svg")):
     raw = f.read_text(encoding="utf-8")
     ET.fromstring(raw)  # raises if malformed
 
-    remote = re.findall(r'(?:xlink:)?href="(?!#)[^"]+"', raw)
+    remote = re.findall(r'(?:xlink:)?href="(?!#|data:)[^"]+"', raw)
     scripts = re.findall(r"<script|foreignObject|on\w+=", raw)
     ids = set(re.findall(r'\bid="([^"]+)"', raw))
     missing = sorted(set(re.findall(r"url\(#([^)]+)\)", raw)) - ids)

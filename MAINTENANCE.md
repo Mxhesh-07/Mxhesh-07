@@ -67,7 +67,7 @@ runs inside `<img>` because it is declarative SVG, not script. Current inventory
 
 | Panel | Motion |
 | :-- | :-- |
-| hero | two light slashes sweeping behind the mask, breathing reiatsu aura, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
+| hero | two light slashes sweeping behind the portrait, breathing reiatsu halo, a portrait arc turning once per 24 s, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
 | player | breathing reiatsu aura behind the commit count |
 | abilities | each release's reiatsu underline charges and fades, staggered |
 | quests | a sheen sweeps across the panel, clipped to its cut corners |
@@ -97,46 +97,35 @@ landing page.
 
 ## The character
 
-The hero does not draw a person. A hand-coded face reads as a cartoon at any
-size — the version that tried it was rejected twice — so the hero carries the
-hollow mask instead: an object with hard geometry, which vector drawing does
-well. It is built in `hollow_head()` under
-`<g transform="translate(980 320) rotate(-6)">`, so every coordinate below is
-mask-local, origin at the centre of the face:
+The hero carries a **photograph**, not a drawing. `assets/portrait.jpg` (460 ×
+460, 65 KB) is embedded as a base64 data URI inside `hero.svg` by
+`portrait_panel()` — it has to travel inside the file, because an SVG loaded
+through `<img>` cannot fetch anything external.
 
-| Layer | Coordinates (local) |
+| Layer | Value |
 | :-- | :-- |
-| plate | egg outline, `-128..128 x`, `-178..200 y`, `url(#gMask)` white→bone gradient |
-| form | `url(#gBoneShade)` radial light from upper left, `#7C766B` shadow side, `fBone` turbulence grain at 9% |
-| brow shelf | `gBrow` band, `-120..-28 y`, 32% black |
-| jaw shadow | `gJaw` band, `120..210 y`, 30% black |
-| eye sockets | swept slits `-122..-32 x` and `32..122 x`, `-88..-40 y`, `#07070A` |
-| socket embers | curved line `±104,-60` to `±42,-60`, `RED`, 3.6 s opacity pulse |
-| engraved marks | three tapered black slashes per side, `#241F19` at 50% |
-| nose slits | angled lines `±20,26` to `±10,-2` |
-| grin | `-92..92 x`, `56..150 y`, nine fangs above and eight below, clipped to it |
-| chips | `112,-108` and `-108,96` on the edge, dark bite plus a lit lip |
-| cracks | brow `-10,-178` to `-2,-86`, temple `96,-98` to `104,-58`, jaw |
-| rim light | 3.6 px white along the lit left edge |
+| source | `assets/portrait.jpg`, face-cropped from the original 735 × 1272 shot |
+| framing | circle `r=150` centred at `980,300`, i.e. exactly the hollow hole |
+| grade | `fDuo` duotone: black `#0A0908` → warm white `#FFF0DB`, so it sits in the orange light |
+| vignette | `gVig` radial, 85% black at the rim |
+| ring | 7 px ink at `r=151.5`, 1.8 px orange at `r=148` |
+| arcs | orange dash `70 260` at `r=166`, rotating once per 24 s; dotted ink at `r=177` |
+| halo | orange at 13–21%, 7 s breathe |
 
-The mask sits on the orange sun and overlaps the hollow hole, so it reads as
-white-on-black at the top and white-on-orange at the chin. Keep it inside the
-sun (`r=300` at `980,296`) and let it break the hole's edge — that overlap is
-what makes it look lit from behind. The cleaver is drawn first, at
-`translate(1105 760) rotate(12)`, so the blade rises behind the mask's right
-side and out of frame, and only its white outline reads against the black
-page. If the mask reads flat, raise the jaw shading or the rim light before
-adding detail — value does the work, not line count.
+To change the picture: replace `assets/portrait.jpg` — square, 400–600 px,
+under 100 KB — run `python build.py`, commit. The circle crops the centre, so
+the face should already be centred in the square. The hero grows by about 1.35×
+the JPEG's size in base64, so keep the source small.
 
-A real photograph is the only way to put an actual face in the hero: drop the
-file in `assets/` and embed it as base64, since an SVG loaded through `<img>`
-cannot fetch remote images.
+The cleaver is drawn before the portrait, at `translate(1105 760) rotate(12)`,
+so the blade rises behind the frame and out of the page, and only its white
+outline reads against the black.
 
 ## Placeholders left to replace
 
 | Field | Where | Notes |
 | :-- | :-- | :-- |
-| Portrait | — | None used. The hero draws a stylised sun, hollow hole and zanpakuto instead of a photo, because SVG loaded as an image cannot fetch your GitHub avatar. |
+| Portrait | `assets/portrait.jpg` | Your own photo, embedded as base64. Swap the file, rebuild, and the hero updates. It cannot come from your GitHub avatar, because an SVG inside `<img>` cannot fetch remote images. |
 | Seat (`16`) | `PLAYER["seat"]` | Thematic: `1 + commits // 8`. It is labelled `THEMATIC` on the panel and is **not** a rank. Recompute or delete the tile. |
 | Threat class | `QUESTS[*]["threat"]` | Thematic difficulty label (MENOS / ARRANCAR), not a certification. |
 | Email | `README.md` | `mxhesh.dev@gmail.com`. Change it in the SQUAD block if you'd rather use a different address. |
