@@ -30,17 +30,18 @@ JS = r"""
 () => {
   const svg = document.querySelector('svg');
   const vb = svg.viewBox.baseVal;
+  // measure everything in the ROOT coordinate space, otherwise a skewed or
+  // rotated element reports its own local coords and comparisons are garbage
+  const rootInv = svg.getScreenCTM().inverse();
   const texts = [...svg.querySelectorAll('text')]
     .filter(t => !t.closest('[data-deco]'))
     .map((t, i) => {
     const b = t.getBoundingClientRect();
-    const ctm = t.getScreenCTM().inverse();
-    // convert viewport rect back to viewBox units
     const pt = svg.createSVGPoint();
     pt.x = b.left; pt.y = b.top;
-    const tl = pt.matrixTransform(ctm);
+    const tl = pt.matrixTransform(rootInv);
     pt.x = b.right; pt.y = b.bottom;
-    const br = pt.matrixTransform(ctm);
+    const br = pt.matrixTransform(rootInv);
     return {
       i,
       s: t.textContent.slice(0, 42),

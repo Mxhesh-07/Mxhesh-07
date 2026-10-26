@@ -59,8 +59,8 @@ to be achievements.
 
 | Field | Where | Notes |
 | :-- | :-- | :-- |
-| Avatar / portrait | — | None used. The player card shows an `M` monogram instead, because SVG loaded as an image cannot fetch your GitHub avatar. |
-| Spoken languages | `PLAYER["tongues"]` | Currently "TAMIL · ENGLISH". Add Kannada/Hindi if you want them listed. |
+| Avatar / portrait | — | None used. The hero draws a stylised hooded silhouette instead of a photo, because SVG loaded as an image cannot fetch your GitHub avatar. |
+| Spoken languages | — | Not shown any more. The old "TAMIL · ENGLISH" row was dropped in the manga redesign; add it back to the player panel if you want it. |
 | Email | `README.md` | `mxhesh.dev@gmail.com`. Change it in the Connect line if you'd rather use a different address. |
 | Stars received | not shown | Your public repos currently have zero, so the metric was left out rather than displayed as a discouraging zero. Add it to the player tiles once it's meaningful. |
 
@@ -82,8 +82,12 @@ Run before pushing a change:
 - GitHub strips `<style>` and `<script>`; the only styling that survives is
   inside the SVG files themselves.
 - SVG loaded through `<img>` cannot fetch external fonts or images. Fonts are
-  system stacks; the Korean watermark in the hero uses whatever CJK font the
-  viewer has.
+  system stacks. The Japanese labels (影の開発者, つづく, 依頼) ask for Yu Gothic
+  first, then Hiragino, then Noto CJK — a viewer with no CJK font at all would
+  see empty boxes, which is the one rendering risk of the manga styling.
+- Decorative type (the giant translucent kanji, the rotated edge text) is
+  wrapped in `<g data-deco="1">` so `check.py` ignores it when measuring text
+  collisions. Art that is meant to be sat on top of other art needs that tag.
 - Third-party stat cards (`github-readme-stats`, streak counters) are avoided on
   purpose — they fail silently, and a broken image looks worse than no image.
 - Canvas width is 1200px but GitHub renders at roughly 79% of that, so the
