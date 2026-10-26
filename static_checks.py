@@ -41,9 +41,14 @@ for f in sorted(ASSETS.glob("*.svg")):
 
     remote = re.findall(r'(?:xlink:)?href="(?!#)[^"]+"', raw)
     scripts = re.findall(r"<script|foreignObject|on\w+=", raw)
+    ids = set(re.findall(r'\bid="([^"]+)"', raw))
+    missing = sorted(set(re.findall(r"url\(#([^)]+)\)", raw)) - ids)
     print(f"{f.name:15} valid-xml  {len(raw) / 1024:5.1f} KB  "
-          f"remote-refs={len(remote)}  forbidden={len(scripts)}")
-    if remote or scripts:
+          f"remote-refs={len(remote)}  forbidden={len(scripts)}  "
+          f"missing-refs={len(missing)}")
+    if missing:
+        print(f"                undefined paint refs: {missing}")
+    if remote or scripts or missing:
         fails += 1
 
 # contrast of every distinct text fill

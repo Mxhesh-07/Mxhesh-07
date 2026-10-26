@@ -67,7 +67,7 @@ runs inside `<img>` because it is declarative SVG, not script. Current inventory
 
 | Panel | Motion |
 | :-- | :-- |
-| hero | two light slashes sweeping behind the figure, breathing reiatsu aura, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
+| hero | two light slashes sweeping behind the mask, breathing reiatsu aura, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
 | player | breathing reiatsu aura behind the commit count |
 | abilities | each release's reiatsu underline charges and fades, staggered |
 | quests | a sheen sweeps across the panel, clipped to its cut corners |
@@ -97,27 +97,37 @@ landing page.
 
 ## The character
 
-The hero figure is drawn from scratch in `portrait()` + `fighter()` — an original
-vector homage, not traced from a frame. It is a three-quarter bust, chin at local
-`y=+94`, rendered inside `<g transform="translate(980 292) rotate(-4)">` so every
-coordinate in `portrait()` is head-local:
+The hero does not draw a person. A hand-coded face reads as a cartoon at any
+size — the version that tried it was rejected twice — so the hero carries the
+hollow mask instead: an object with hard geometry, which vector drawing does
+well. It is built in `hollow_head()` under
+`<g transform="translate(980 320) rotate(-6)">`, so every coordinate below is
+mask-local, origin at the centre of the face:
 
 | Layer | Coordinates (local) |
 | :-- | :-- |
-| back hair mass + spikes | `-110..114 x`, `-146..56 y` |
-| face | oval, `-70..74 x`, `-100..94 y` |
-| visible eye | centre `34,0`, iris `#6B4A2E`, brow at `-26` |
-| hollow mask | left half, `-80..10 x`, `-64..88 y`, white `MASK` plate |
-| mask eye socket | `-62..-20 x`, `-30..4 y`, ember dot on `RED` |
-| fringe | zigzag from `-84,-34` to `86,-30`, points `-12..-60` |
-| neck | `938..1022 x`, `372..458 y` in canvas space, `SKIN_SH` |
+| plate | egg outline, `-134..134 x`, `-176..200 y`, `url(#gMask)` white→bone gradient |
+| jaw shading | crescent along the right edge, `78..134 x`, `#8A847A` at 26% |
+| eye sockets | twisted quads `-106..-19 x` and `19..106 x`, `-88..-16 y`, `#08080A` |
+| socket embers | `-62,-48` and `62,-48`, `r=4`, `RED`, 3.2 s opacity pulse |
+| nose slits | two wedges at `±17,4` down to `±7,24` |
+| grin | `-92..92 x`, `58..138 y`, seven white bars clipped to it = teeth |
+| war paint | two red stripes, `-100..-54 x`, `-2..42 y` |
+| cracks | brow `-8,-176` to `-4,-48`, cheek `62,-140` to `58,-64`, temple |
+| rim light | 3 px white along the lit left edge |
 
-Rules of thumb: the head must stay inside the hollow hole (`r=148` at `980,296`)
-or the framing breaks; skin is `SKIN`, shadow `SKIN_SH`, line work `SKIN_D`; the
-mask covers the viewer's left half, so keep the right eye, ear and mouth visible
-or the face stops reading. If the portrait feels flat, raise the opacity of the
-cheek shading and the rim light before adding detail — value does the work, not
-line count.
+The mask sits on the orange sun and overlaps the hollow hole, so it reads as
+white-on-black at the top and white-on-orange at the chin. Keep it inside the
+sun (`r=300` at `980,296`) and let it break the hole's edge — that overlap is
+what makes it look lit from behind. The cleaver is drawn first, at
+`translate(1105 760) rotate(12)`, so the blade rises behind the mask's right
+side and out of frame, and only its white outline reads against the black
+page. If the mask reads flat, raise the jaw shading or the rim light before
+adding detail — value does the work, not line count.
+
+A real photograph is the only way to put an actual face in the hero: drop the
+file in `assets/` and embed it as base64, since an SVG loaded through `<img>`
+cannot fetch remote images.
 
 ## Placeholders left to replace
 

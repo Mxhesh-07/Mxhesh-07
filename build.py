@@ -223,6 +223,11 @@ def defs():
     <stop offset="0.5" stop-color="{ORANGE}" stop-opacity="0.55"/>
     <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
   </linearGradient>
+  <linearGradient id="gMask" x1="0.1" y1="0" x2="0.9" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.45" stop-color="#F2EEE6"/>
+    <stop offset="1" stop-color="#BDB7AC"/>
+  </linearGradient>
   <linearGradient id="gBody" x1="0" y1="0" x2="0.25" y2="1">
     <stop offset="0" stop-color="#23232B"/>
     <stop offset="0.45" stop-color="#1A1A21"/>
@@ -433,150 +438,69 @@ def cleaver():
     return "".join(p)
 
 
-def portrait():
-    """3/4 portrait of a substitute shinigami: half hollow mask, cleaver on the
-    shoulder. Local coords, y down, chin at about y=+94."""
-    p = [f'<g transform="translate(980 292) rotate(-4)">']
+def hollow_head():
+    """A hollow mask, bone-white and cracked - the one Bleach character element
+    that survives being drawn as vector geometry."""
+    p = ['<g transform="translate(980 320) rotate(-6)">']
 
-    # -- back hair mass with spikes -------------------------------------
-    p.append(f'<path d="M -78,52 L -100,16 L -92,-22 L -110,-50 L -88,-76 '
-             f'L -106,-108 L -66,-102 L -56,-136 L -22,-114 L 6,-146 '
-             f'L 34,-114 L 66,-130 L 80,-96 L 106,-66 L 96,-26 L 114,-2 '
-             f'L 92,28 L 78,56 Z" fill="{HAIR}" stroke="#7A2A05" '
-             f'stroke-width="2"/>')
-    # strands
-    for d, o in (("M -60,-96 L -40,-30", 0.5), ("M -10,-118 L 0,-40", 0.35),
-                 ("M 44,-104 L 36,-30", 0.45), ("M 84,-70 L 62,-24", 0.4)):
-        p.append(f'<path d="{d}" stroke="{HAIR_D}" stroke-width="5" '
-                 f'opacity="{o}" stroke-linecap="round" fill="none"/>')
-    for d, o in (("M -34,-120 L -18,-70", 0.55), ("M 22,-124 L 30,-74", 0.5),
-                 ("M 66,-98 L 56,-56", 0.45)):
-        p.append(f'<path d="{d}" stroke="#FF9E4A" stroke-width="3.4" '
-                 f'opacity="{o}" stroke-linecap="round" fill="none"/>')
+    # warm halo, so the mask separates from the sun
+    p.append(f'<ellipse cx="0" cy="6" rx="152" ry="198" fill="{ORANGE}" '
+             f'opacity="0.14" filter="url(#fSoft)"/>')
 
-    # -- face ------------------------------------------------------------
-    face = ("M -70,-40 C -74,-78 -44,-100 0,-100 C 44,-100 74,-80 74,-42 "
-            "C 74,-14 70,10 66,24 C 60,50 46,72 26,86 C 10,97 -6,96 -20,86 "
-            "C -42,70 -60,46 -66,20 C -70,2 -70,-20 -70,-40 Z")
-    p.append(f'<path d="{face}" fill="{SKIN}" stroke="#8A563C" '
-             f'stroke-width="1.6"/>')
-    # cheek + jaw shading
-    p.append(f'<path d="M 52,44 C 60,28 66,10 68,-8 L 74,4 C 68,32 58,56 44,74 '
-             f'Z" fill="{SKIN_SH}" opacity="0.55"/>')
-    p.append(f'<path d="M -26,86 C -12,96 6,96 20,88 L 16,96 C 2,102 -14,98 '
-             f'-26,92 Z" fill="{SKIN_SH}" opacity="0.6"/>')
-    # shadow along the mask edge, so the skin sits behind the plate
-    p.append(f'<path d="M 14,-52 L 19,18 L 12,62" fill="none" '
-             f'stroke="{SKIN_SH}" stroke-width="5" opacity="0.35" '
-             f'stroke-linecap="round"/>')
-    # ear
-    p.append(f'<ellipse cx="74" cy="10" rx="9" ry="15" fill="{SKIN_SH}" '
-             f'stroke="{SKIN_D}" stroke-width="1.4"/>')
-    p.append(f'<path d="M 72,2 C 78,6 78,14 72,20" fill="none" '
-             f'stroke="{SKIN_D}" stroke-width="1.4" opacity="0.8"/>')
+    shape = ("M 0,-176 C 86,-176 134,-118 134,-38 C 134,44 96,126 38,176 "
+             "C 18,192 4,200 0,200 C -4,200 -18,192 -38,176 C -96,126 -134,44 "
+             "-134,-38 C -134,-118 -86,-176 0,-176 Z")
+    p.append(f'<path d="{shape}" fill="url(#gMask)" stroke="#0A0A0C" '
+             f'stroke-width="4"/>')
+    # jaw / right-side shading
+    p.append('<path d="M 44,-172 C 98,-152 134,-96 134,-38 C 134,44 96,126 '
+             '38,176 C 62,118 78,42 78,-40 C 78,-104 62,-152 44,-172 Z" '
+             'fill="#8A847A" opacity="0.26"/>')
 
-    # -- eye, brow, nose, mouth -----------------------------------------
-    p.append(f'<ellipse cx="34" cy="-2" rx="26" ry="15" fill="{SKIN_SH}" '
-             f'opacity="0.4"/>')
-    p.append(f'<circle cx="34" cy="0" r="9.5" fill="#6B4A2E" stroke="#2A1B12" '
-             f'stroke-width="1.6"/>')
-    p.append(f'<circle cx="34" cy="0" r="4.2" fill="#150C07"/>')
-    p.append(f'<circle cx="30" cy="-4" r="2.6" fill="#FFFFFF"/>')
-    p.append('<path d="M 12,-8 Q 34,-22 58,-6" fill="none" stroke="#2A1B12" '
-             'stroke-width="5" stroke-linecap="round"/>')
-    p.append(f'<path d="M 16,6 Q 34,12 54,4" fill="none" stroke="{SKIN_D}" '
-             f'stroke-width="2" opacity="0.8"/>')
-    p.append(f'<path d="M 8,-26 Q 36,-38 62,-24" fill="none" stroke="{HAIR_D}" '
-             f'stroke-width="5.5" stroke-linecap="round"/>')
-    p.append(f'<path d="M 22,20 Q 30,36 18,40" fill="none" stroke="{SKIN_D}" '
-             f'stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>')
-    p.append(f'<path d="M 12,62 Q 26,68 40,60" fill="none" stroke="#8A563C" '
-             f'stroke-width="2.6" stroke-linecap="round"/>')
+    # eye sockets
+    p.append('<path d="M -106,-62 L -34,-88 L -19,-32 L -95,-16 Z" '
+             'fill="#08080A"/>')
+    p.append('<path d="M 106,-62 L 34,-88 L 19,-32 L 95,-16 Z" fill="#08080A"/>')
+    for ex in (-62, 62):
+        p.append(f'<circle cx="{ex}" cy="-48" r="4" fill="{RED}" '
+                 f'filter="url(#fGlow)">'
+                 f'<animate attributeName="opacity" values="0.95;0.15;0.95" '
+                 f'dur="3.2s" repeatCount="indefinite"/></circle>')
 
-    # -- half hollow mask ------------------------------------------------
-    mask = ("M -80,-56 L -76,-18 L -66,18 L -54,48 L -34,74 L -16,88 "
-            "L 2,80 L 6,48 L 10,8 L 8,-32 L 2,-64 Z")
-    p.append(f'<path d="{mask}" fill="{MASK}" stroke="#0A0A0C" '
-             f'stroke-width="2.4" stroke-linejoin="round"/>')
-    p.append(f'<path d="{mask}" fill="none" stroke="#B9B4AC" stroke-width="1" '
-             f'opacity="0.7" transform="translate(3 3) scale(0.95)"/>')
-    # empty eye socket, with a red ember inside
-    p.append('<path d="M -62,-24 L -24,-30 L -20,-2 L -56,4 Z" fill="#0A0A0C"/>')
-    p.append(f'<circle cx="-40" cy="-13" r="3.2" fill="{RED}" '
-             f'filter="url(#fGlow)">'
-             f'<animate attributeName="opacity" values="0.9;0.25;0.9" dur="3.4s" '
-             f'repeatCount="indefinite"/></circle>')
-    # red war paint
-    p.append(f'<path d="M -70,18 L -36,12 L -34,25 L -68,31 Z" fill="{RED}" '
-             f'opacity="0.85"/>')
-    p.append(f'<path d="M -62,36 L -34,30 L -33,39 L -60,45 Z" fill="{RED}" '
-             f'opacity="0.55"/>')
-    # teeth nick along the jaw + a hairline crack
-    for i in range(3):
-        x = -40 + i * 11
-        p.append(f'<path d="M {x},66 L {x + 3},80" stroke="#5A554E" '
-                 f'stroke-width="2.4" opacity="0.8"/>')
-    p.append('<path d="M -52,-48 L -44,-34 L -50,-22" fill="none" '
-             'stroke="#8F8A82" stroke-width="1.4" opacity="0.9"/>')
+    # nose slits
+    p.append('<path d="M -17,4 L -3,0 L -7,24 Z" fill="#08080A" opacity="0.85"/>')
+    p.append('<path d="M 17,4 L 3,0 L 7,24 Z" fill="#08080A" opacity="0.85"/>')
 
-    # -- fringe over the forehead ---------------------------------------
-    p.append(f'<path d="M -84,-34 L -66,-50 L -58,-14 L -42,-54 L -30,-12 '
-             f'L -14,-58 L 2,-16 L 18,-60 L 34,-18 L 50,-56 L 62,-16 '
-             f'L 78,-50 L 86,-30 L 86,-92 L -84,-98 Z" fill="{HAIR}" '
-             f'stroke="#7A2A05" stroke-width="1.6"/>')
-    p.append(f'<path d="M -84,-34 L -66,-50 L -58,-14 L -42,-54 L -30,-12 '
-             f'L -14,-58 L 2,-16" fill="none" stroke="{HAIR_D}" '
-             f'stroke-width="2" opacity="0.55"/>')
+    # grin, teeth clipped inside it
+    cid = uid("mouth")
+    mouth = "M -92,58 Q 0,86 92,58 L 84,104 Q 0,138 -84,104 Z"
+    p.append(f'<clipPath id="{cid}"><path d="{mouth}"/></clipPath>')
+    p.append(f'<path d="{mouth}" fill="#08080A"/>')
+    for i in range(7):
+        x = -78 + i * 26
+        p.append(f'<rect x="{x}" y="50" width="13" height="92" fill="#F7F5EF" '
+                 f'clip-path="url(#{cid})" opacity="0.9"/>')
+    p.append(f'<path d="{mouth}" fill="none" stroke="#0A0A0C" stroke-width="3"/>')
 
-    # -- rim light -------------------------------------------------------
-    p.append('<path d="M 70,-72 C 80,-52 78,-22 70,8 C 64,34 52,58 34,78" '
-             'fill="none" stroke="#FFC48A" stroke-width="2.4" opacity="0.75" '
-             'stroke-linecap="round"/>')
-    p.append(f'<path d="M -88,-74 C -98,-44 -102,-12 -96,20" fill="none" '
-             f'stroke="{ORANGE}" stroke-width="1.8" opacity="0.5" '
-             f'stroke-linecap="round"/>')
-    # shadow the jaw casts on the neck
-    p.append('<ellipse cx="0" cy="100" rx="46" ry="12" fill="#3A2216" '
-             'opacity="0.55"/>')
+    # red war paint on the cheek
+    p.append(f'<path d="M -100,6 L -56,-2 L -54,15 L -98,23 Z" fill="{RED}" '
+             f'opacity="0.8"/>')
+    p.append(f'<path d="M -94,30 L -56,23 L -55,35 L -92,42 Z" fill="{RED}" '
+             f'opacity="0.5"/>')
+
+    # cracks
+    p.append('<path d="M -8,-176 L 4,-120 L -12,-84 L -4,-48" fill="none" '
+             'stroke="#6B675F" stroke-width="2.2"/>')
+    p.append('<path d="M 62,-140 L 44,-96 L 58,-64" fill="none" '
+             'stroke="#6B675F" stroke-width="1.8"/>')
+    p.append('<path d="M -70,-120 L -58,-92 L -70,-70" fill="none" '
+             'stroke="#6B675F" stroke-width="1.6" opacity="0.8"/>')
+
+    # rim light on the lit edge
+    p.append('<path d="M -60,-168 C -110,-146 -134,-96 -134,-38" fill="none" '
+             'stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>')
+
     p.append("</g>")
-    return "".join(p)
-
-
-def fighter():
-    """Full bust: cleaver, shihakusho, head."""
-    torso = ("M 780,800 L 776,640 C 776,552 790,492 806,468 "
-             "C 858,444 898,430 934,418 L 940,452 L 1020,452 L 1026,418 "
-             "C 1062,430 1102,444 1154,468 C 1170,492 1184,552 1184,640 "
-             "L 1180,800 Z")
-    p = []
-
-    # cleaver first: it rises from behind the right shoulder
-    p.append(f'<g transform="translate(1046 528) rotate(15)">{cleaver()}</g>')
-
-    # neck
-    p.append(f'<path d="M 938,372 L 1022,372 L 1022,458 L 938,458 Z" '
-             f'fill="{SKIN_SH}"/>')
-    p.append(f'<path d="M 938,372 L 964,372 L 964,458 L 938,458 Z" '
-             f'fill="{SKIN_D}" opacity="0.35"/>')
-
-    # body
-    p.append(f'<path d="{torso}" fill="url(#gBody)"/>')
-    p.append(f'<path d="{torso}" fill="none" stroke="{ORANGE}" stroke-width="2.6" '
-             f'opacity="0.55"/>')
-    p.append('<path d="M 892,470 C 926,540 934,660 930,800" fill="none" '
-             'stroke="#191920" stroke-width="2.4"/>')
-    p.append('<path d="M 1068,470 C 1034,540 1026,660 1030,800" fill="none" '
-             'stroke="#191920" stroke-width="2.4"/>')
-    p.append(f'<path d="M 808,466 C 858,443 898,430 934,418" fill="none" '
-             f'stroke="#FFD9B0" stroke-width="2.6" opacity="0.5"/>')
-    # white under-collar
-    p.append(f'<path d="M 940,452 L 980,512 L 1020,452" fill="none" '
-             f'stroke="{INK}" stroke-width="8" stroke-linejoin="round" '
-             f'opacity="0.94"/>')
-    p.append(f'<path d="M 948,462 L 980,506 L 1012,462" fill="none" '
-             f'stroke="{ORANGE}" stroke-width="1.8" opacity="0.6"/>')
-
-    p.append(portrait())
     return "".join(p)
 
 
@@ -634,6 +558,9 @@ def hero():
                  f'keyTimes="0;0.22;1" dur="{7 + i * 1.5}s" begin="{i * 0.6}s" '
                  f'repeatCount="indefinite"/></rect>')
 
+    # zanpakuto planted behind the mask
+    b.append(f'<g transform="translate(1105 760) rotate(12)">{cleaver()}</g>')
+
     # reiatsu aura behind the body, so the silhouette reads below the sun
     b.append(f'<ellipse cx="980" cy="610" rx="330" ry="270" fill="url(#gRei)" '
              f'opacity="0.22">'
@@ -641,7 +568,7 @@ def hero():
              f'repeatCount="indefinite"/></ellipse>')
 
     # the substitute shinigami
-    b.append(fighter())
+    b.append(hollow_head())
 
     # hell butterfly crossing the page
     b.append(deco(
