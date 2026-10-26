@@ -406,35 +406,10 @@ def katana():
 HAIR = "#FF7A18"
 HAIR_D = "#A83404"
 BODY = "#0A0A0C"
-
-
-def hair_spikes(cx, cy, rx, ry, seed=3):
-    """Shaggy crown of triangular shards - the one unmistakable silhouette cue."""
-    rnd = Rand(seed)
-    out = []
-    for i in range(13):
-        a0 = math.radians(168 + i * 184 / 13)
-        a1 = math.radians(168 + (i + 1) * 184 / 13)
-        am = (a0 + a1) / 2 + math.radians(rnd.rng(-4, 4))
-        k = rnd.rng(1.14, 1.55)
-        p0 = (cx + math.cos(a0) * rx, cy + math.sin(a0) * ry)
-        p1 = (cx + math.cos(a1) * rx, cy + math.sin(a1) * ry)
-        tip = (cx + math.cos(am) * rx * k, cy + math.sin(am) * ry * k)
-        out.append(f'<polygon points="{p0[0]:.0f},{p0[1]:.0f} '
-                   f'{tip[0]:.0f},{tip[1]:.0f} {p1[0]:.0f},{p1[1]:.0f}" '
-                   f'fill="{HAIR}"/>')
-    # darker strands for depth
-    for i in range(7):
-        a = math.radians(182 + i * 25)
-        p0 = (cx + math.cos(a) * rx * 0.35, cy + math.sin(a) * ry * 0.35)
-        p1 = (cx + math.cos(a + 0.14) * rx * 0.42,
-              cy + math.sin(a + 0.14) * ry * 0.42)
-        tip = (cx + math.cos(a + 0.05) * rx * 0.98,
-               cy + math.sin(a + 0.05) * ry * 0.98)
-        out.append(f'<polygon points="{p0[0]:.0f},{p0[1]:.0f} '
-                   f'{tip[0]:.0f},{tip[1]:.0f} {p1[0]:.0f},{p1[1]:.0f}" '
-                   f'fill="{HAIR_D}" opacity="0.85"/>')
-    return "".join(out)
+SKIN = "#E9C3A4"
+SKIN_SH = "#C08D6C"
+SKIN_D = "#8A563C"
+MASK = "#F5F3EE"
 
 
 def cleaver():
@@ -458,49 +433,150 @@ def cleaver():
     return "".join(p)
 
 
+def portrait():
+    """3/4 portrait of a substitute shinigami: half hollow mask, cleaver on the
+    shoulder. Local coords, y down, chin at about y=+94."""
+    p = [f'<g transform="translate(980 292) rotate(-4)">']
+
+    # -- back hair mass with spikes -------------------------------------
+    p.append(f'<path d="M -78,52 L -100,16 L -92,-22 L -110,-50 L -88,-76 '
+             f'L -106,-108 L -66,-102 L -56,-136 L -22,-114 L 6,-146 '
+             f'L 34,-114 L 66,-130 L 80,-96 L 106,-66 L 96,-26 L 114,-2 '
+             f'L 92,28 L 78,56 Z" fill="{HAIR}" stroke="#7A2A05" '
+             f'stroke-width="2"/>')
+    # strands
+    for d, o in (("M -60,-96 L -40,-30", 0.5), ("M -10,-118 L 0,-40", 0.35),
+                 ("M 44,-104 L 36,-30", 0.45), ("M 84,-70 L 62,-24", 0.4)):
+        p.append(f'<path d="{d}" stroke="{HAIR_D}" stroke-width="5" '
+                 f'opacity="{o}" stroke-linecap="round" fill="none"/>')
+    for d, o in (("M -34,-120 L -18,-70", 0.55), ("M 22,-124 L 30,-74", 0.5),
+                 ("M 66,-98 L 56,-56", 0.45)):
+        p.append(f'<path d="{d}" stroke="#FF9E4A" stroke-width="3.4" '
+                 f'opacity="{o}" stroke-linecap="round" fill="none"/>')
+
+    # -- face ------------------------------------------------------------
+    face = ("M -70,-40 C -74,-78 -44,-100 0,-100 C 44,-100 74,-80 74,-42 "
+            "C 74,-14 70,10 66,24 C 60,50 46,72 26,86 C 10,97 -6,96 -20,86 "
+            "C -42,70 -60,46 -66,20 C -70,2 -70,-20 -70,-40 Z")
+    p.append(f'<path d="{face}" fill="{SKIN}" stroke="#8A563C" '
+             f'stroke-width="1.6"/>')
+    # cheek + jaw shading
+    p.append(f'<path d="M 52,44 C 60,28 66,10 68,-8 L 74,4 C 68,32 58,56 44,74 '
+             f'Z" fill="{SKIN_SH}" opacity="0.55"/>')
+    p.append(f'<path d="M -26,86 C -12,96 6,96 20,88 L 16,96 C 2,102 -14,98 '
+             f'-26,92 Z" fill="{SKIN_SH}" opacity="0.6"/>')
+    # shadow along the mask edge, so the skin sits behind the plate
+    p.append(f'<path d="M 14,-52 L 19,18 L 12,62" fill="none" '
+             f'stroke="{SKIN_SH}" stroke-width="5" opacity="0.35" '
+             f'stroke-linecap="round"/>')
+    # ear
+    p.append(f'<ellipse cx="74" cy="10" rx="9" ry="15" fill="{SKIN_SH}" '
+             f'stroke="{SKIN_D}" stroke-width="1.4"/>')
+    p.append(f'<path d="M 72,2 C 78,6 78,14 72,20" fill="none" '
+             f'stroke="{SKIN_D}" stroke-width="1.4" opacity="0.8"/>')
+
+    # -- eye, brow, nose, mouth -----------------------------------------
+    p.append(f'<ellipse cx="34" cy="-2" rx="26" ry="15" fill="{SKIN_SH}" '
+             f'opacity="0.4"/>')
+    p.append(f'<circle cx="34" cy="0" r="9.5" fill="#6B4A2E" stroke="#2A1B12" '
+             f'stroke-width="1.6"/>')
+    p.append(f'<circle cx="34" cy="0" r="4.2" fill="#150C07"/>')
+    p.append(f'<circle cx="30" cy="-4" r="2.6" fill="#FFFFFF"/>')
+    p.append('<path d="M 12,-8 Q 34,-22 58,-6" fill="none" stroke="#2A1B12" '
+             'stroke-width="5" stroke-linecap="round"/>')
+    p.append(f'<path d="M 16,6 Q 34,12 54,4" fill="none" stroke="{SKIN_D}" '
+             f'stroke-width="2" opacity="0.8"/>')
+    p.append(f'<path d="M 8,-26 Q 36,-38 62,-24" fill="none" stroke="{HAIR_D}" '
+             f'stroke-width="5.5" stroke-linecap="round"/>')
+    p.append(f'<path d="M 22,20 Q 30,36 18,40" fill="none" stroke="{SKIN_D}" '
+             f'stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>')
+    p.append(f'<path d="M 12,62 Q 26,68 40,60" fill="none" stroke="#8A563C" '
+             f'stroke-width="2.6" stroke-linecap="round"/>')
+
+    # -- half hollow mask ------------------------------------------------
+    mask = ("M -80,-56 L -76,-18 L -66,18 L -54,48 L -34,74 L -16,88 "
+            "L 2,80 L 6,48 L 10,8 L 8,-32 L 2,-64 Z")
+    p.append(f'<path d="{mask}" fill="{MASK}" stroke="#0A0A0C" '
+             f'stroke-width="2.4" stroke-linejoin="round"/>')
+    p.append(f'<path d="{mask}" fill="none" stroke="#B9B4AC" stroke-width="1" '
+             f'opacity="0.7" transform="translate(3 3) scale(0.95)"/>')
+    # empty eye socket, with a red ember inside
+    p.append('<path d="M -62,-24 L -24,-30 L -20,-2 L -56,4 Z" fill="#0A0A0C"/>')
+    p.append(f'<circle cx="-40" cy="-13" r="3.2" fill="{RED}" '
+             f'filter="url(#fGlow)">'
+             f'<animate attributeName="opacity" values="0.9;0.25;0.9" dur="3.4s" '
+             f'repeatCount="indefinite"/></circle>')
+    # red war paint
+    p.append(f'<path d="M -70,18 L -36,12 L -34,25 L -68,31 Z" fill="{RED}" '
+             f'opacity="0.85"/>')
+    p.append(f'<path d="M -62,36 L -34,30 L -33,39 L -60,45 Z" fill="{RED}" '
+             f'opacity="0.55"/>')
+    # teeth nick along the jaw + a hairline crack
+    for i in range(3):
+        x = -40 + i * 11
+        p.append(f'<path d="M {x},66 L {x + 3},80" stroke="#5A554E" '
+                 f'stroke-width="2.4" opacity="0.8"/>')
+    p.append('<path d="M -52,-48 L -44,-34 L -50,-22" fill="none" '
+             'stroke="#8F8A82" stroke-width="1.4" opacity="0.9"/>')
+
+    # -- fringe over the forehead ---------------------------------------
+    p.append(f'<path d="M -84,-34 L -66,-50 L -58,-14 L -42,-54 L -30,-12 '
+             f'L -14,-58 L 2,-16 L 18,-60 L 34,-18 L 50,-56 L 62,-16 '
+             f'L 78,-50 L 86,-30 L 86,-92 L -84,-98 Z" fill="{HAIR}" '
+             f'stroke="#7A2A05" stroke-width="1.6"/>')
+    p.append(f'<path d="M -84,-34 L -66,-50 L -58,-14 L -42,-54 L -30,-12 '
+             f'L -14,-58 L 2,-16" fill="none" stroke="{HAIR_D}" '
+             f'stroke-width="2" opacity="0.55"/>')
+
+    # -- rim light -------------------------------------------------------
+    p.append('<path d="M 70,-72 C 80,-52 78,-22 70,8 C 64,34 52,58 34,78" '
+             'fill="none" stroke="#FFC48A" stroke-width="2.4" opacity="0.75" '
+             'stroke-linecap="round"/>')
+    p.append(f'<path d="M -88,-74 C -98,-44 -102,-12 -96,20" fill="none" '
+             f'stroke="{ORANGE}" stroke-width="1.8" opacity="0.5" '
+             f'stroke-linecap="round"/>')
+    # shadow the jaw casts on the neck
+    p.append('<ellipse cx="0" cy="100" rx="46" ry="12" fill="#3A2216" '
+             'opacity="0.55"/>')
+    p.append("</g>")
+    return "".join(p)
+
+
 def fighter():
-    """Cropped bust of a substitute shinigami, seen from behind, backlit."""
-    cx, cy, rx, ry = 980, 300, 66, 80
-    torso = ("M 800,800 L 796,640 C 796,560 806,500 820,478 "
-             "C 866,452 900,436 934,424 L 936,388 L 1024,388 L 1026,424 "
-             "C 1060,436 1094,452 1140,478 C 1154,500 1164,560 1164,640 "
-             "L 1160,800 Z")
+    """Full bust: cleaver, shihakusho, head."""
+    torso = ("M 780,800 L 776,640 C 776,552 790,492 806,468 "
+             "C 858,444 898,430 934,418 L 940,452 L 1020,452 L 1026,418 "
+             "C 1062,430 1102,444 1154,468 C 1170,492 1184,552 1184,640 "
+             "L 1180,800 Z")
     p = []
 
     # cleaver first: it rises from behind the right shoulder
     p.append(f'<g transform="translate(1046 528) rotate(15)">{cleaver()}</g>')
 
     # neck
-    p.append(f'<rect x="936" y="366" width="88" height="66" fill="#0B0B0D"/>')
+    p.append(f'<path d="M 938,372 L 1022,372 L 1022,458 L 938,458 Z" '
+             f'fill="{SKIN_SH}"/>')
+    p.append(f'<path d="M 938,372 L 964,372 L 964,458 L 938,458 Z" '
+             f'fill="{SKIN_D}" opacity="0.35"/>')
 
     # body
     p.append(f'<path d="{torso}" fill="url(#gBody)"/>')
     p.append(f'<path d="{torso}" fill="none" stroke="{ORANGE}" stroke-width="2.6" '
              f'opacity="0.55"/>')
-    # shoulder seam + fold shading
-    p.append('<path d="M 884,456 C 920,520 930,640 926,800" fill="none" '
+    p.append('<path d="M 892,470 C 926,540 934,660 930,800" fill="none" '
              'stroke="#191920" stroke-width="2.4"/>')
-    p.append('<path d="M 1076,456 C 1040,520 1030,640 1034,800" fill="none" '
+    p.append('<path d="M 1068,470 C 1034,540 1026,660 1030,800" fill="none" '
              'stroke="#191920" stroke-width="2.4"/>')
-    p.append(f'<path d="M 822,476 C 866,451 900,436 934,424" fill="none" '
+    p.append(f'<path d="M 808,466 C 858,443 898,430 934,418" fill="none" '
              f'stroke="#FFD9B0" stroke-width="2.6" opacity="0.5"/>')
-    # white under-collar, crossed at the back
-    p.append(f'<path d="M 936,392 L 980,470 L 1024,392" fill="none" '
-             f'stroke="{INK}" stroke-width="7" stroke-linejoin="round" '
-             f'opacity="0.92"/>')
-    p.append(f'<path d="M 944,402 L 980,466 L 1016,402" fill="none" '
-             f'stroke="{ORANGE}" stroke-width="1.6" opacity="0.55"/>')
+    # white under-collar
+    p.append(f'<path d="M 940,452 L 980,512 L 1020,452" fill="none" '
+             f'stroke="{INK}" stroke-width="8" stroke-linejoin="round" '
+             f'opacity="0.94"/>')
+    p.append(f'<path d="M 948,462 L 980,506 L 1012,462" fill="none" '
+             f'stroke="{ORANGE}" stroke-width="1.8" opacity="0.6"/>')
 
-    # head: solid orange hair mass, shards, rim light
-    p.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{HAIR}" '
-             f'stroke="#8A3404" stroke-width="2"/>')
-    p.append(hair_spikes(cx, cy, rx, ry))
-    p.append(f'<path d="M {cx + rx * 0.34:.0f} {cy - ry * 0.94:.0f} '
-             f'A {rx} {ry} 0 0 1 {cx + rx * 0.99:.0f} {cy + ry * 0.1:.0f}" '
-             f'fill="none" stroke="#FFC48A" stroke-width="2.6" opacity="0.8"/>')
-    p.append(f'<path d="M {cx - rx * 0.5:.0f} {cy + ry * 0.55:.0f} '
-             f'A {rx} {ry} 0 0 0 {cx - rx * 0.98:.0f} {cy - ry * 0.05:.0f}" '
-             f'fill="none" stroke="{ORANGE}" stroke-width="1.6" opacity="0.45"/>')
+    p.append(portrait())
     return "".join(p)
 
 

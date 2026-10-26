@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" width="100%" alt="Bleach-style title page on black: a substitute shinigami seen from behind - spiky orange hair framed inside the hollow hole of a giant orange sun, black shihakusho with a white crossed collar, a huge cleaver zanpakuto rising past his shoulder. A hell butterfly crosses the top, reiatsu shockwaves roll off the bottom. MAHESH in heavy white type, 死神代行, BLEACH chapter 01. Reiatsu: 123 commits.">
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" width="100%" alt="Bleach-style title page on black: a three-quarter portrait of a substitute shinigami inside the hollow hole of a giant orange sun. Spiky orange hair, one sharp brown eye, a white hollow mask with an empty black eye socket and red war paint over the other half of his face. Black shihakusho with a white collar, a giant cleaver zanpakuto rising past his shoulder. A hell butterfly crosses the top, reiatsu shockwaves roll off the bottom. MAHESH in heavy white type, 死神代行, BLEACH chapter 01. Reiatsu: 123 commits.">
 
 <img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/player.svg" width="100%" alt="Shinigami file panel: name Mahesh S, role student developer, zanpakuto Python, specialty AI, computer vision and web, current mission build useful software. Reiatsu 123 commits, seat 16. 6 public repos, 11 languages, 422 passing tests.">
 

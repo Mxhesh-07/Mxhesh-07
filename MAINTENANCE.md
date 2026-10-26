@@ -97,24 +97,27 @@ landing page.
 
 ## The character
 
-The hero figure is drawn from scratch in `fighter()` — an original vector
-homage, not traced from a frame. Back view, cropped at the waist, so there is no
-face to get wrong: spiky orange hair (`HAIR` / `HAIR_D`), black shihakusho with
-the white crossed under-collar, and a giant cleaver rising from behind the right
-shoulder (`cleaver()`, positioned by the `translate(...) rotate(15)` in that
-function).
+The hero figure is drawn from scratch in `portrait()` + `fighter()` — an original
+vector homage, not traced from a frame. It is a three-quarter bust, chin at local
+`y=+94`, rendered inside `<g transform="translate(980 292) rotate(-4)">` so every
+coordinate in `portrait()` is head-local:
 
-Geometry knobs, top to bottom:
+| Layer | Coordinates (local) |
+| :-- | :-- |
+| back hair mass + spikes | `-110..114 x`, `-146..56 y` |
+| face | oval, `-70..74 x`, `-100..94 y` |
+| visible eye | centre `34,0`, iris `#6B4A2E`, brow at `-26` |
+| hollow mask | left half, `-80..10 x`, `-64..88 y`, white `MASK` plate |
+| mask eye socket | `-62..-20 x`, `-30..4 y`, ember dot on `RED` |
+| fringe | zigzag from `-84,-34` to `86,-30`, points `-12..-60` |
+| neck | `938..1022 x`, `372..458 y` in canvas space, `SKIN_SH` |
 
-- head centre `cx, cy = 980, 300` and radii `rx, ry = 66, 80` — the head is sized
-  to sit inside the hollow hole (`r=148`); move either and the framing breaks
-- `torso` path — the shoulder curve and the crop width at y=800
-- `hair_spikes()` — spike count, length range and the darker strands
-
-The body fills with `gBody` (a near-black gradient) rather than flat black, so
-the silhouette stays visible below the sun where the page is already black.
-If the figure reads too heavy, raise the bottom stop of `gBody` or shrink
-`ry`; if it reads as a blob, lengthen the spikes and raise the rim-light opacity.
+Rules of thumb: the head must stay inside the hollow hole (`r=148` at `980,296`)
+or the framing breaks; skin is `SKIN`, shadow `SKIN_SH`, line work `SKIN_D`; the
+mask covers the viewer's left half, so keep the right eye, ear and mouth visible
+or the face stops reading. If the portrait feels flat, raise the opacity of the
+cheek shading and the rim light before adding detail — value does the work, not
+line count.
 
 ## Placeholders left to replace
 
