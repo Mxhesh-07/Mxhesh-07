@@ -3,6 +3,9 @@
 Everything visual is generated. Don't hand-edit the SVG files — they get
 overwritten the next time `build.py` runs.
 
+The theme is Bleach: black page, paper-white ink, Ichigo orange, blood red,
+zanpakuto, hollow hole, reiatsu shockwaves, 卍解.
+
 ## Layout
 
 ```
@@ -30,7 +33,7 @@ committing the regenerated file, the profile keeps showing the old artwork.
 
 ## Updating content
 
-**Player card, metrics, ranks** — the `PLAYER` dict in `build.py`:
+**Shinigami file, metrics, seat** — the `PLAYER` dict in `build.py`:
 
 ```python
 commits=123, repos=6, languages=11, tests=422
@@ -46,7 +49,9 @@ gh api graphql -f query='{ user(login:"Mxhesh-07") { repositories(first:20) {
 
 **Projects** — the `QUESTS` list. One entry per card; the file name is derived
 from `name`, so renaming a project needs its `README.md` `<img>` path updated
-too. Set `status` to `CLEARED` to switch the card to green.
+too. `status` is free text (`ACTIVE`, `ONE BOSS LEFT`, `SEALED`); `SEALED`
+switches the stamp to pale blue, everything else uses orange. `threat` is the
+thematic class shown above the card (MENOS / ARRANCAR).
 
 **Abilities** — the `ABILITIES` list. Deliberately has no percentages. Only add
 a tool here if at least one public repo uses it.
@@ -55,14 +60,51 @@ a tool here if at least one public repo uses it.
 holds shipped work only; no certificates, no awards, no placeholders pretending
 to be achievements.
 
+## Animation
+
+All motion is SMIL (`<animate>`, `<animateMotion>`, `stroke-dashoffset`). It
+runs inside `<img>` because it is declarative SVG, not script. Current inventory:
+
+| Panel | Motion |
+| :-- | :-- |
+| hero | sliding slash sweep, katana gleam up the blade, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
+| player | breathing reiatsu aura behind the commit count |
+| abilities | each release's reiatsu underline charges and fades, staggered |
+| quests | a sheen sweeps across the panel, clipped to its cut corners |
+| mission | aura pulse, objective rule draws itself left to right |
+| log | sheen sweep across the log panel, blinking push beacon |
+| footer | 卍解 draws its stroke, three reiatsu rings, white bankai flash every 7s |
+
+Tuning knobs are the `dur`, `begin` and `values` attributes in the generator —
+keep `repeatCount="indefinite"` so the profile never freezes mid-animation. Keep
+amplitudes small: GitHub renders the panels at ~79% width, and anything that
+moves more than a few percent of the canvas reads as jitter rather than intent.
+
+## Interactivity (and its limits)
+
+A README cannot run JavaScript, and an SVG inside `<img>` never receives hover,
+click or cursor events — GitHub's sanitizer removes both. So "interactive" here
+means only what GitHub really supports:
+
+- **`<details>` / `<summary>` blocks** in `README.md`: SHIKAI numbers, BANKAI
+  project table, SQUAD contact. They open and close on click, no script needed.
+- **Linked quest cards**: every 任務 panel is wrapped in `<a href>` to its repo,
+  and the repo link in the BANKAI table stays clickable.
+
+If a future request is "make it react to the mouse", the honest answer is that
+GitHub cannot do it — the closest upgrade is more collapsibles or a linked
+landing page.
+
 ## Placeholders left to replace
 
 | Field | Where | Notes |
 | :-- | :-- | :-- |
-| Avatar / portrait | — | None used. The hero draws a stylised hooded silhouette instead of a photo, because SVG loaded as an image cannot fetch your GitHub avatar. |
-| Spoken languages | — | Not shown any more. The old "TAMIL · ENGLISH" row was dropped in the manga redesign; add it back to the player panel if you want it. |
-| Email | `README.md` | `mxhesh.dev@gmail.com`. Change it in the Connect line if you'd rather use a different address. |
+| Portrait | — | None used. The hero draws a stylised sun, hollow hole and zanpakuto instead of a photo, because SVG loaded as an image cannot fetch your GitHub avatar. |
+| Seat (`16`) | `PLAYER["seat"]` | Thematic: `1 + commits // 8`. It is labelled `THEMATIC` on the panel and is **not** a rank. Recompute or delete the tile. |
+| Threat class | `QUESTS[*]["threat"]` | Thematic difficulty label (MENOS / ARRANCAR), not a certification. |
+| Email | `README.md` | `mxhesh.dev@gmail.com`. Change it in the SQUAD block if you'd rather use a different address. |
 | Stars received | not shown | Your public repos currently have zero, so the metric was left out rather than displayed as a discouraging zero. Add it to the player tiles once it's meaningful. |
+| Spoken languages | — | Not shown. The old "TAMIL · ENGLISH" row was dropped in the manga redesign; add it back to the registry rows if you want it. |
 
 ## Validation checklist
 
@@ -74,20 +116,27 @@ Run before pushing a change:
 - [ ] each quest card's `<a href>` matches a real, public repository
 - [ ] numbers in `PLAYER` still match the GitHub API
 - [ ] no line claims a certification, award or completion you can't point at
+- [ ] each panel still contains at least one `<animate>` (see the Animation table)
 - [ ] preview at ~400px wide: panels scale to the column, never overflow
 - [ ] alt text still describes each panel accurately
+- [ ] `<details>` blocks still render collapsed and open on click on github.com
 
 ## Rendering rules learned the hard way
 
 - GitHub strips `<style>` and `<script>`; the only styling that survives is
-  inside the SVG files themselves.
+  inside the SVG files themselves. SMIL attributes survive, which is why every
+  animation is built from `<animate>` / `<animateMotion>` rather than CSS.
 - SVG loaded through `<img>` cannot fetch external fonts or images. Fonts are
-  system stacks. The Japanese labels (影の開発者, つづく, 依頼) ask for Yu Gothic
-  first, then Hiragino, then Noto CJK — a viewer with no CJK font at all would
-  see empty boxes, which is the one rendering risk of the manga styling.
-- Decorative type (the giant translucent kanji, the rotated edge text) is
-  wrapped in `<g data-deco="1">` so `check.py` ignores it when measuring text
-  collisions. Art that is meant to be sat on top of other art needs that tag.
+  system stacks: Impact for the poster type, Segoe UI for body, and Yu Gothic →
+  Hiragino → Noto CJK for the Japanese labels (死神ファイル, 斬魄刀, 任務, 卍解).
+  A viewer with no CJK font at all would see empty boxes — the one rendering
+  risk of the theme. Keep a Latin label beside every Japanese one.
+- Decorative type (the giant translucent 斬/霊/装, the vertical 卍解, lightning
+  lines) is wrapped in `<g data-deco="1">` so `check.py` ignores it when
+  measuring text collisions. Art that is meant to be sat on top of other art
+  needs that tag.
+- Moving art that crosses text is also `data-deco`: the katana, slash sweep and
+  butterfly deliberately pass over panels.
 - Third-party stat cards (`github-readme-stats`, streak counters) are avoided on
   purpose — they fail silently, and a broken image looks worse than no image.
 - Canvas width is 1200px but GitHub renders at roughly 79% of that, so the

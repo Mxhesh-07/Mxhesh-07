@@ -1,12 +1,15 @@
 ﻿"""
-Solo Leveling style profile art - v3, manga poster language.
+Bleach themed GitHub profile art - v4.
 
-v1 and v2 were dashboards: panels, labels, bars. This version is drawn like an
-anime / manga chapter page instead - a hooded silhouette, halftone screentone,
-focus lines, katakana, chapter stamps and a "to be continued" spread.
+Black page, paper white ink, Ichigo orange and blood red. Zanpakuto across the
+title, hollow hole, reiatsu shockwaves, a hell butterfly, 卍解, and 任務 cards.
 
-Every number is still real (GitHub API, 2026-10-26, and the repos' own
-READMEs). No skill percentages, no invented awards, no fake stars.
+Motion is SMIL (animate / animateTransform / animateMotion): GitHub strips
+<script> and CSS out of READMEs, but declarative SVG animation still plays
+inside <img>. Hover and cursor effects cannot work there - the interactive
+layer lives in the README as <details> blocks and linked cards.
+
+Numbers stay real (GitHub API, 2026-10-26, plus the repos' own READMEs).
 
 Run: python build.py
 """
@@ -18,21 +21,19 @@ OUT = Path(__file__).parent / "assets"
 OUT.mkdir(exist_ok=True)
 
 # -- palette ------------------------------------------------------------------
-BG = "#04060D"
-BG2 = "#0A1428"
-INK = "#F4F7FB"
-MUTED = "#93A4BF"
-DIM = "#5C6C87"
-BLUE = "#3B82F6"
-SKY = "#67E8F9"
-CYAN = "#7DD3FC"
-VIOLET = "#8B5CF6"
-DEEP = "#1E3A8A"
-GOLD = "#FBBF24"
-GREEN = "#34D399"
-LINE = "#16233C"
-LINE2 = "#22314F"
+BG = "#060607"
+BG2 = "#0C0C0E"
+INK = "#F5F3EE"
+ORANGE = "#FF6A00"
+RED = "#E11D2E"
+PALE = "#CFE9FF"
+GOLD = "#E8C170"
+DIM = "#6B6B72"
+LINE = "#232326"
+LINE2 = "#313136"
 
+TITLE = ("'Impact','Haettenschweiler','Arial Narrow','Arial Black',"
+         "'Helvetica Neue',sans-serif")
 SANS = "'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif"
 HEAVY = ("'Segoe UI Black','Segoe UI','Arial Black','Helvetica Neue',"
          "Helvetica,Arial,sans-serif")
@@ -40,63 +41,61 @@ JP = ("'Yu Gothic','Yu Gothic UI',Meiryo,'Hiragino Kaku Gothic ProN',"
       "'Hiragino Sans','Noto Sans JP','Noto Sans CJK JP',sans-serif")
 
 DOT = "\u00b7"
-DIAMOND = "\u25c6"
 ARROW = "\u2192"
+BANKAI = "\u5345\u89e3"
+SHINIGAMI = "\u6b7b\u795e\u4ee3\u884c"
 
 # -- verified data ------------------------------------------------------------
 PLAYER = dict(
     handle="Mxhesh-07",
     name="MAHESH",
-    role="STUDENT DEVELOPER",
-    klass="DEVELOPER",
-    rank="E \u2192 S",
-    spec="AI " + DOT + " PYTHON " + DOT + " WEB",
-    quest="BUILD USEFUL SOFTWARE",
-    level=16,
-    exp_now=3,
-    exp_max=8,
+    given="Mahesh S",
+    role="Student developer",
+    zanpakuto="Python",
+    spec="AI " + DOT + " COMPUTER VISION " + DOT + " WEB",
+    quest="Build useful software",
+    seat=16,
     repos=6,
     commits=123,
     languages=11,
     tests=422,
 )
 
-# rank = difficulty of the build, not a mark I was given
 QUESTS = [
     dict(rank="S", name="Mark-42", kind="DESKTOP AI ASSISTANT",
-         jp="\u5f71\u306e\u4ed5\u4e8b",
+         jp="\u5f71\u306e\u4ed5\u4e8b", threat="MENOS CLASS",
          desc="Always-on voice agent that drives a Windows desktop: Gemini Live "
               "audio, planner and executor tool loop, screen OCR, browser control.",
          tech="Python / Gemini Live / Playwright / OpenGL",
          status="ACTIVE", url="https://github.com/Mxhesh-07/Mark-42"),
     dict(rank="S", name="KAVACH", kind="BORDER VIDEO ANALYTICS",
-         jp="\u56fd\u5883\u306e\u773c",
+         jp="\u56fd\u5883\u306e\u773c", threat="MENOS CLASS",
          desc="Smart India Hackathon 2026, problem statement 26187. Sub-3ms "
               "inference over CCTV, thermal and drone feeds, sealed event logs.",
          tech="C++20 / CUDA / TensorRT / FastAPI",
          status="ACTIVE", url="https://github.com/Mxhesh-07/kavach"),
     dict(rank="A", name="iTantraMessage", kind="OFFLINE MESSENGER",
-         jp="\u7e4b\u304c\u308b\u58f0",
+         jp="\u7e4b\u304c\u308b\u58f0", threat="ARRANCAR CLASS",
          desc="Peer-to-peer messaging over raw Bluetooth. No server, no account, "
               "no INTERNET permission in the release build. 422 tests passing.",
          tech="Kotlin / Android / RFCOMM / Whisper",
          status="ONE BOSS LEFT", url="https://github.com/Mxhesh-07/iTantraMessage"),
     dict(rank="A", name="nemotron-data-forge", kind="DATASET PIPELINE",
-         jp="\u30c7\u30fc\u30bf\u306e\u7089",
+         jp="\u30c7\u30fc\u30bf\u306e\u7089", threat="ARRANCAR CLASS",
          desc="Turns a topic into a graded, de-duplicated, fine-tuning-ready "
               "dataset. Nebius x NVIDIA hackathon build.",
          tech="Python / Streamlit / Tavily",
-         status="CLEARED", url="https://github.com/Mxhesh-07/nemotron-data-forge"),
+         status="SEALED", url="https://github.com/Mxhesh-07/nemotron-data-forge"),
 ]
 
 ABILITIES = [
-    ("\u57fa\u672c", "BASE", "CORE",
-     ["Python", "JavaScript", "HTML", "CSS"], BLUE),
-    ("\u80fd\u529b", "POWER", "AI & VISION",
+    ("\u65ac", "CUT", "BASE", "LANGUAGES",
+     ["Python", "JavaScript", "HTML", "CSS"], ORANGE),
+    ("\u970a", "SPIRIT", "POWER", "AI & VISION",
      ["AI API integration", "Computer vision", "Voice assistants", "Automation"],
-     SKY),
-    ("\u9053\u5177", "TOOLS", "TOOLING",
-     ["Git", "GitHub", "VS Code", "FastAPI", "OpenCV", "Docker"], VIOLET),
+     PALE),
+    ("\u88c5", "FORGE", "TOOLS", "TOOLING",
+     ["Git", "GitHub", "VS Code", "FastAPI", "OpenCV", "Docker"], RED),
 ]
 
 LOG = [
@@ -131,7 +130,7 @@ def uid(prefix="c"):
 
 
 class Rand:
-    """Tiny deterministic LCG so the artwork is identical on every build."""
+    """Deterministic LCG so the artwork is identical on every build."""
 
     def __init__(self, seed=7):
         self.s = seed
@@ -156,13 +155,8 @@ def T(x, y, s, size=16, fill=INK, ls=1.2, weight="400", anchor="start",
             f'text-anchor="{anchor}" opacity="{opacity}">{esc(s)}</text>')
 
 
-def hexagon(cx, cy, r, fill="none", stroke=BLUE, sw=1.2, opacity=1.0, rot=0):
-    pts = []
-    for i in range(6):
-        a = math.radians(60 * i - 90 + rot)
-        pts.append(f"{cx + r * math.cos(a):.2f},{cy + r * math.sin(a):.2f}")
-    return (f'<polygon points="{" ".join(pts)}" fill="{fill}" stroke="{stroke}" '
-            f'stroke-width="{sw}" opacity="{opacity}"/>')
+def deco(svg):
+    return f'<g data-deco="1">{svg}</g>'
 
 
 def wrap(s, width):
@@ -179,65 +173,70 @@ def wrap(s, width):
     return lines
 
 
-def deco(svg):
-    """Mark decorative text so the geometry checker ignores it."""
-    return f'<g data-deco="1">{svg}</g>'
-
-
 def defs():
     return f"""
 <defs>
-  <linearGradient id="gPage" x1="0" y1="0" x2="0.6" y2="1">
+  <linearGradient id="gPage" x1="0" y1="0" x2="0.7" y2="1">
     <stop offset="0" stop-color="{BG}"/>
-    <stop offset="0.45" stop-color="#070C16"/>
+    <stop offset="0.5" stop-color="#08080A"/>
     <stop offset="1" stop-color="{BG2}"/>
   </linearGradient>
-  <linearGradient id="gPanel" x1="0" y1="0" x2="0.2" y2="1">
-    <stop offset="0" stop-color="#0A101E"/>
-    <stop offset="1" stop-color="#05080F"/>
+  <linearGradient id="gPanel" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#0E0E11"/>
+    <stop offset="1" stop-color="#050506"/>
   </linearGradient>
-  <radialGradient id="gAura" cx="0.5" cy="0.5" r="0.5">
-    <stop offset="0" stop-color="{BLUE}" stop-opacity="0.34"/>
-    <stop offset="0.5" stop-color="{VIOLET}" stop-opacity="0.14"/>
-    <stop offset="1" stop-color="{VIOLET}" stop-opacity="0"/>
+  <radialGradient id="gSun" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#FF7A1A" stop-opacity="1"/>
+    <stop offset="0.62" stop-color="{ORANGE}" stop-opacity="0.92"/>
+    <stop offset="0.86" stop-color="{RED}" stop-opacity="0.42"/>
+    <stop offset="1" stop-color="{RED}" stop-opacity="0"/>
   </radialGradient>
-  <radialGradient id="gMoon" cx="0.42" cy="0.36" r="0.62">
-    <stop offset="0" stop-color="#DBEAFE" stop-opacity="0.95"/>
-    <stop offset="0.28" stop-color="#93C5FD" stop-opacity="0.55"/>
-    <stop offset="0.62" stop-color="{BLUE}" stop-opacity="0.30"/>
-    <stop offset="1" stop-color="{DEEP}" stop-opacity="0"/>
+  <radialGradient id="gRei" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="{PALE}" stop-opacity="0.75"/>
+    <stop offset="0.45" stop-color="{ORANGE}" stop-opacity="0.20"/>
+    <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
   </radialGradient>
-  <linearGradient id="gName" x1="0" y1="0" x2="1" y2="0.6">
+  <radialGradient id="gHollow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#000000" stop-opacity="1"/>
+    <stop offset="0.72" stop-color="#000000" stop-opacity="1"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="gName" x1="0" y1="0" x2="0" y2="1">
     <stop offset="0" stop-color="#FFFFFF"/>
-    <stop offset="0.7" stop-color="#E0F2FE"/>
-    <stop offset="1" stop-color="#7DD3FC"/>
-  </linearGradient>
-  <linearGradient id="gRimL" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#E0F2FE" stop-opacity="0.95"/>
-    <stop offset="0.35" stop-color="{SKY}" stop-opacity="0.7"/>
-    <stop offset="1" stop-color="{SKY}" stop-opacity="0"/>
-  </linearGradient>
-  <linearGradient id="gRimR" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="{VIOLET}" stop-opacity="0.85"/>
-    <stop offset="0.6" stop-color="{VIOLET}" stop-opacity="0.32"/>
-    <stop offset="1" stop-color="{VIOLET}" stop-opacity="0"/>
+    <stop offset="0.62" stop-color="{INK}"/>
+    <stop offset="1" stop-color="#C9C2B6"/>
   </linearGradient>
   <linearGradient id="gBlade" x1="0" y1="0" x2="1" y2="0">
     <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
-    <stop offset="0.35" stop-color="#E0F2FE" stop-opacity="0.9"/>
-    <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="1"/>
-    <stop offset="0.8" stop-color="{SKY}" stop-opacity="0.55"/>
-    <stop offset="1" stop-color="{SKY}" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.9"/>
+    <stop offset="0.62" stop-color="{ORANGE}" stop-opacity="0.9"/>
+    <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gSteel" x1="0" y1="1" x2="0" y2="0">
+    <stop offset="0" stop-color="#8C8C93"/>
+    <stop offset="0.35" stop-color="#E9E9EE"/>
+    <stop offset="0.62" stop-color="#FFFFFF"/>
+    <stop offset="1" stop-color="#B9B9C2"/>
+  </linearGradient>
+  <linearGradient id="gSheen" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="{ORANGE}" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="{ORANGE}" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
   </linearGradient>
   <linearGradient id="gFadeUp" x1="0" y1="1" x2="0" y2="0">
     <stop offset="0" stop-color="{BG}" stop-opacity="1"/>
     <stop offset="1" stop-color="{BG}" stop-opacity="0"/>
   </linearGradient>
-  <pattern id="htA" width="9" height="9" patternUnits="userSpaceOnUse">
-    <circle cx="2" cy="2" r="1.9" fill="{CYAN}" opacity="0.20"/>
+  <pattern id="htA" width="8" height="8" patternUnits="userSpaceOnUse">
+    <circle cx="2" cy="2" r="1.5" fill="{INK}" opacity="0.14"/>
   </pattern>
-  <pattern id="htB" width="6" height="6" patternUnits="userSpaceOnUse">
-    <circle cx="1.5" cy="1.5" r="1.1" fill="{VIOLET}" opacity="0.18"/>
+  <pattern id="htB" width="5" height="5" patternUnits="userSpaceOnUse">
+    <circle cx="1.2" cy="1.2" r="1" fill="{ORANGE}" opacity="0.16"/>
+  </pattern>
+  <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse"
+           patternTransform="rotate(52)">
+    <line x1="0" y1="0" x2="0" y2="9" stroke="{INK}" stroke-width="1"
+          opacity="0.10"/>
   </pattern>
   <filter id="fGlow" x="-70%" y="-70%" width="240%" height="240%">
     <feGaussianBlur stdDeviation="4" result="b"/>
@@ -245,11 +244,11 @@ def defs():
       <feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
   <filter id="fBig" x="-60%" y="-60%" width="220%" height="220%">
-    <feGaussianBlur stdDeviation="18" result="b"/>
+    <feGaussianBlur stdDeviation="16" result="b"/>
     <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
   <filter id="fSoft" x="-60%" y="-60%" width="220%" height="220%">
-    <feGaussianBlur stdDeviation="26"/>
+    <feGaussianBlur stdDeviation="24"/>
   </filter>
 </defs>
 """
@@ -260,26 +259,24 @@ def doc(w, h, body):
             f'viewBox="0 0 {w} {h}" role="img">\n{defs()}\n{body}\n</svg>\n')
 
 
-def page(w, h, accent=BLUE, halftone="bottom"):
+def page(w, h, accent=ORANGE, halftone="bottom"):
     out = [f'<rect width="{w}" height="{h}" fill="url(#gPage)"/>']
-    out.append(f'<ellipse cx="{w * 0.5}" cy="{-h * 0.15}" rx="{w * 0.75}" '
-               f'ry="{h * 0.7}" fill="url(#gAura)" opacity="0.45"/>')
+    out.append(f'<rect id="mk" width="{w}" height="{h}" fill="url(#hatch)" '
+               f'opacity="0.5"/>')
     if halftone == "bottom":
-        out.append(f'<rect x="0" y="{h * 0.52}" width="{w}" height="{h * 0.48}" '
-                   f'fill="url(#htA)" opacity="0.55"/>')
-        out.append(f'<rect x="0" y="{h * 0.52}" width="{w}" height="{h * 0.48}" '
-                   f'fill="url(#gFadeUp)" opacity="0.85"/>')
+        out.append(f'<rect x="0" y="{h * 0.58}" width="{w}" height="{h * 0.42}" '
+                   f'fill="url(#htA)" opacity="0.5"/>')
+        out.append(f'<rect x="0" y="{h * 0.58}" width="{w}" height="{h * 0.42}" '
+                   f'fill="url(#gFadeUp)" opacity="0.75"/>')
     out.append(f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" '
                f'fill="none" stroke="{LINE}" stroke-width="1"/>')
-    out.append(f'<rect x="0" y="0" width="64" height="3" fill="{accent}" '
-               f'opacity="0.9"/>')
-    out.append(f'<rect x="{w - 4}" y="{h * 0.5}" width="3" height="{h * 0.18}" '
-               f'fill="{accent}" opacity="0.35"/>')
+    out.append(f'<rect x="0" y="0" width="96" height="3" fill="{accent}"/>')
+    out.append(f'<rect x="{w - 3}" y="0" width="3" height="{h * 0.16}" '
+               f'fill="{accent}" opacity="0.7"/>')
     return "".join(out)
 
 
 def mpanel(x, y, w, h, cut=30, accent=None, texture="corner"):
-    """Angular manga panel: cut corners, hairline, screentone in one corner."""
     cid = uid("clip")
     pts = (f"{x + cut},{y} {x + w - cut},{y} {x + w},{y + cut} "
            f"{x + w},{y + h - cut} {x + w - cut},{y + h} {x + cut},{y + h} "
@@ -288,294 +285,326 @@ def mpanel(x, y, w, h, cut=30, accent=None, texture="corner"):
            f'<polygon points="{pts}" fill="url(#gPanel)" stroke="{LINE2}" '
            f'stroke-width="1"/>']
     if texture == "corner":
-        out.append(f'<g clip-path="url(#{cid})"><rect x="{x + w * 0.52}" y="{y}" '
-                   f'width="{w * 0.48}" height="{h}" fill="url(#htA)" '
-                   f'opacity="0.30"/></g>')
+        out.append(f'<g clip-path="url(#{cid})"><rect x="{x + w * 0.55}" y="{y}" '
+                   f'width="{w * 0.45}" height="{h}" fill="url(#htA)" '
+                   f'opacity="0.22"/></g>')
     elif texture == "bottom":
-        out.append(f'<g clip-path="url(#{cid})"><rect x="{x}" y="{y + h * 0.55}" '
-                   f'width="{w}" height="{h * 0.45}" fill="url(#htA)" '
-                   f'opacity="0.34"/></g>')
+        out.append(f'<g clip-path="url(#{cid})"><rect x="{x}" y="{y + h * 0.62}" '
+                   f'width="{w}" height="{h * 0.38}" fill="url(#htB)" '
+                   f'opacity="0.30"/></g>')
     if accent:
-        out.append(f'<line x1="{x + cut}" y1="{y + 1.5}" x2="{x + w * 0.42}" '
+        out.append(f'<line x1="{x + cut}" y1="{y + 1.5}" x2="{x + w * 0.38}" '
                    f'y2="{y + 1.5}" stroke="{accent}" stroke-width="2"/>')
-        out.append(f'<line x1="{x + w * 0.62}" y1="{y + 1.5}" x2="{x + w - cut}" '
-                   f'y2="{y + 1.5}" stroke="{accent}" stroke-width="1" '
-                   f'opacity="0.35"/>')
-    return "".join(out)
+    return "".join(out), cid
 
 
-def stamp(cx, cy, r, label, color, rot=-9, size=None):
-    """Dashed rank stamp, slightly rotated, like a chapter badge."""
+def seal(cx, cy, r, label, color, rot=-8, size=None):
+    """Rotated double ring seal - Bleach title-page badge."""
     size = size or r * 0.9
     return (f'<g transform="rotate({rot} {cx} {cy})">'
-            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#05080F" '
-            f'stroke="{color}" stroke-width="1" opacity="0.9"/>'
-            f'<circle cx="{cx}" cy="{cy}" r="{r - 5}" fill="none" stroke="{color}" '
-            f'stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#060607" '
+            f'stroke="{color}" stroke-width="1.4"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="{r - 6}" fill="none" stroke="{color}" '
+            f'stroke-width="1" stroke-dasharray="2 5" opacity="0.7"/>'
             + T(cx, cy + size * 0.35, label, size, color, 0, "900",
-                anchor="middle", family=HEAVY) + "</g>")
+                anchor="middle", family=TITLE) + "</g>")
 
 
-def speedlines(cx, cy, r0, r1, n=68, color=CYAN, seed=11, op=(0.05, 0.2)):
+def inklines(x0, y0, x1, y1, n=40, seed=9, color=INK, op=(0.05, 0.16)):
     rnd = Rand(seed)
     out = []
-    for i in range(n):
-        a = 2 * math.pi * i / n + rnd.rng(-0.008, 0.008)
-        inner = r0 + rnd.rng(10, 150)
-        outer = r1 + rnd.rng(-90, 180)
-        out.append(
-            f'<line x1="{cx + inner * math.cos(a):.1f}" '
-            f'y1="{cy + inner * math.sin(a):.1f}" '
-            f'x2="{cx + outer * math.cos(a):.1f}" '
-            f'y2="{cy + outer * math.sin(a):.1f}" stroke="{color}" '
-            f'stroke-width="{rnd.rng(0.6, 2.4):.1f}" '
-            f'opacity="{rnd.rng(*op):.2f}"/>')
+    for _ in range(n):
+        x = rnd.rng(x0, x1)
+        y = rnd.rng(y0, y1)
+        ln = rnd.rng(40, 220)
+        out.append(f'<line x1="{x:.0f}" y1="{y:.0f}" x2="{x + ln * 0.72:.0f}" '
+                   f'y2="{y - ln * 0.69:.0f}" stroke="{color}" '
+                   f'stroke-width="{rnd.rng(0.6, 1.8):.1f}" '
+                   f'opacity="{rnd.rng(*op):.2f}"/>')
     return "".join(out)
 
 
-def level_meta(w, h, jp, label, color=SKY):
+def reiatsu_rings(cx, cy, color=ORANGE, n=3, dur=4.2):
+    out = []
+    for i in range(n):
+        delay = i * dur / n
+        out.append(
+            f'<ellipse cx="{cx}" cy="{cy}" rx="30" ry="8" fill="none" '
+            f'stroke="{color}" stroke-width="2" opacity="0">'
+            f'<animate attributeName="rx" values="30;520" dur="{dur}s" '
+            f'begin="{delay:.2f}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="ry" values="8;150" dur="{dur}s" '
+            f'begin="{delay:.2f}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values="0.5;0" dur="{dur}s" '
+            f'begin="{delay:.2f}s" repeatCount="indefinite"/>'
+            f'</ellipse>')
+    return "".join(out)
+
+
+def butterfly(x=0, y=0, scale=1.0, color=PALE):
+    """Hell butterfly (地獄蝶): two wings, glowing."""
+    return (f'<g transform="translate({x} {y}) scale({scale})" filter="url(#fGlow)">'
+            f'<path d="M0,0 C-16,-14 -30,-5 -25,7 C-20,16 -7,11 0,2 Z" '
+            f'fill="{color}" opacity="0.85"/>'
+            f'<path d="M0,0 C16,-14 30,-5 25,7 C20,16 7,11 0,2 Z" '
+            f'fill="{color}" opacity="0.85"/>'
+            f'<path d="M0,-4 L0,8" stroke="{color}" stroke-width="1.6"/>'
+            f'<path d="M0,-4 L-6,-12 M0,-4 L6,-12" stroke="{color}" '
+            f'stroke-width="0.8" opacity="0.8"/>'
+            f'</g>')
+
+
+def level_meta(w, jp, label, color=ORANGE):
     return (T(24, 62, jp, 24, color, 8, "700", family=JP)
-            + T(24, 88, label, 12, MUTED, 5.5, "600"))
+            + T(24, 88, label, 12, INK, 5.5, "600", opacity=0.85))
 
 
-# -- 1. hero: the awakening ------------------------------------------------
-def figure():
-    """Hooded silhouette with glowing eyes, rim light and a torn cloak."""
-    cloak = ("M 0,-205 C -62,-205 -112,-158 -124,-102 C -136,-46 -124,8 -108,40 "
-             "C -156,58 -204,92 -222,138 C -250,204 -260,270 -262,330 "
-             "L 262,330 C 260,270 250,204 222,138 C 204,92 156,58 108,40 "
-             "C 124,8 136,-46 124,-102 C 112,-158 62,-205 0,-205 Z")
-    tatters = ("M -262,330 L -228,330 L -238,372 L -204,332 L -176,330 "
-               "L -150,366 L -120,332 L -60,330 L -34,360 L -6,332 L 44,330 "
-               "L 70,362 L 98,332 L 150,330 L 176,364 L 200,332 L 262,330 "
-               "L 262,338 L -262,338 Z")
+# -- 1. hero ---------------------------------------------------------------
+def katana():
+    """Zanpakuto in local coords: blade up (-y), tsuba at origin, grip down."""
     p = []
-    p.append(f'<path d="{cloak}" fill="url(#gPanel)" stroke="{LINE2}" '
-             f'stroke-width="1"/>')
-    p.append(f'<path d="{tatters}" fill="#060A14" stroke="{LINE2}" '
-             f'stroke-width="1"/>')
-    p.append(f'<ellipse cx="0" cy="-86" rx="66" ry="82" fill="#02040A"/>')
-    p.append(f'<ellipse cx="0" cy="-86" rx="66" ry="82" fill="none" '
-             f'stroke="{DEEP}" stroke-width="1.4" opacity="0.7"/>')
-    p.append(f'<path d="M -104,44 L -46,150 L 0,96 L 46,150 L 104,44" '
-             f'fill="none" stroke="{LINE2}" stroke-width="1.4" opacity="0.9"/>')
-    p.append(f'<path d="M -196,196 L -176,236 L -186,258 M 178,180 L 196,224 '
-             f'L 184,250" fill="none" stroke="{SKY}" stroke-width="1.2" '
-             f'opacity="0.30"/>')
-    p.append(f'<g opacity="0.85">{hexagon(0, 190, 17, "none", SKY, 1.2, 0.7)}'
-             f'{hexagon(0, 190, 8, "#0A1728", SKY, 1, 0.9, rot=30)}</g>')
-    p.append(f'<path d="M -30,-203 C -84,-196 -114,-158 -124,-102 C -136,-46 '
-             f'-124,8 -108,40 C -156,58 -204,92 -222,138 C -250,204 -260,270 '
-             f'-262,330" fill="none" stroke="url(#gRimL)" stroke-width="2.6"/>')
-    p.append(f'<path d="M 30,-203 C 84,-196 114,-158 124,-102 C 136,-46 124,8 '
-             f'108,40 C 156,58 204,92 222,138 C 250,204 260,270 262,330" '
-             f'fill="none" stroke="url(#gRimR)" stroke-width="2"/>')
-    p.append(f'<g filter="url(#fGlow)">'
-             f'<path d="M -46,-96 L -14,-106 L -11,-88 L -42,-82 Z" fill="{SKY}">'
-             f'<animate attributeName="opacity" values="1;0.45;1" dur="3.6s" '
-             f'repeatCount="indefinite"/></path>'
-             f'<path d="M 46,-96 L 14,-106 L 11,-88 L 42,-82 Z" fill="{SKY}">'
-             f'<animate attributeName="opacity" values="1;0.45;1" dur="3.6s" '
-             f'repeatCount="indefinite"/></path></g>')
-    p.append(f'<path d="M -40,-92 L -18,-99 L -17,-91 L -38,-86 Z" fill="#FFFFFF"/>'
-             f'<path d="M 40,-92 L 18,-99 L 17,-91 L 38,-86 Z" fill="#FFFFFF"/>')
+    # blade
+    p.append('<path d="M -8,-34 L 8,-34 L 10,-566 L 4,-636 L 0,-656 L -4,-636 '
+             'L -10,-566 Z" fill="url(#gSteel)" stroke="#0A0A0B" '
+             'stroke-width="1"/>')
+    # edge highlight + hamon
+    p.append('<path d="M 7,-40 L 8.5,-560" stroke="#FFFFFF" stroke-width="1.6" '
+             'opacity="0.95"/>')
+    p.append('<path d="M -7,-40 C -4,-200 -5,-420 -8,-556" stroke="#7A7A82" '
+             'stroke-width="1" opacity="0.6"/>')
+    # a gleam travelling up the blade
+    p.append('<g><rect x="-9" y="-120" width="19" height="70" fill="#FFFFFF" '
+             'opacity="0.0">'
+             '<animate attributeName="y" values="-120;-620;-620" '
+             'keyTimes="0;0.55;1" dur="5.5s" repeatCount="indefinite"/>'
+             '<animate attributeName="opacity" values="0;0.55;0;0" '
+             'keyTimes="0;0.3;0.55;1" dur="5.5s" repeatCount="indefinite"/>'
+             '</rect></g>')
+    # tsuba
+    p.append(f'<rect x="-32" y="-36" width="64" height="11" rx="3" fill="#111113" '
+             f'stroke="{ORANGE}" stroke-width="1.4"/>')
+    p.append(f'<rect x="-10" y="-25" width="20" height="16" fill="#141416" '
+             f'stroke="{LINE2}" stroke-width="1"/>')
+    # grip with diamond wrap
+    p.append('<rect x="-9" y="-9" width="18" height="150" rx="4" fill="#141416" '
+             'stroke="#2A2A2F" stroke-width="1"/>')
+    for i in range(7):
+        yy = 2 + i * 20
+        p.append(f'<path d="M -9,{yy} L 0,{yy + 11} L 9,{yy} L 0,{yy - 11} Z" '
+                 f'fill="none" stroke="{ORANGE}" stroke-width="1.1" '
+                 f'opacity="0.55"/>')
+    p.append('<circle cx="0" cy="146" r="5" fill="none" stroke="#3A3A40" '
+             'stroke-width="1.4"/>')
     return "".join(p)
 
 
 def hero():
-    w, h = 1200, 780
-    cx, cy = 828, 400
-    b = [page(w, h, SKY)]
+    w, h = 1200, 800
+    b = [page(w, h, ORANGE)]
 
-    b.append(f'<circle cx="{cx}" cy="{cy - 72}" r="252" fill="url(#gMoon)" '
-             f'opacity="0.55"/>')
-    b.append(f'<circle cx="{cx}" cy="{cy - 72}" r="252" fill="none" '
-             f'stroke="{CYAN}" stroke-width="1" opacity="0.28"/>')
-    b.append(f'<circle cx="{cx}" cy="{cy - 72}" r="264" fill="none" '
-             f'stroke="{VIOLET}" stroke-width="1" stroke-dasharray="2 10" '
-             f'opacity="0.35"/>')
+    # sun / hollow hole
+    b.append(f'<circle cx="946" cy="286" r="292" fill="url(#gSun)" opacity="0.72">'
+             f'<animate attributeName="opacity" values="0.64;0.8;0.64" dur="7s" '
+             f'repeatCount="indefinite"/></circle>')
+    b.append(f'<circle cx="946" cy="286" r="286" fill="none" stroke="{ORANGE}" '
+             f'stroke-width="1" opacity="0.35"/>')
+    b.append(f'<circle cx="946" cy="286" r="112" fill="url(#gHollow)"/>')
+    b.append(f'<circle cx="946" cy="286" r="112" fill="none" stroke="{ORANGE}" '
+             f'stroke-width="1.6" opacity="0.7"/>')
 
-    b.append(deco(speedlines(cx, cy - 40, 250, 760, 76, CYAN, 23)))
+    b.append(deco(inklines(700, 40, 1180, 740, 46, 5)))
 
-    b.append(f'<g transform="rotate(-34 600 400)">'
-             f'<rect x="-260" y="392" width="1520" height="16" fill="url(#gBlade)" '
-             f'filter="url(#fBig)" opacity="0.85"/>'
-             f'<rect x="-260" y="397" width="1520" height="4" fill="#E0F2FE" '
-             f'opacity="0.55"/></g>')
+    # reiatsu shockwaves
+    b.append(deco(reiatsu_rings(946, 720, ORANGE, 3, 5.0)))
 
-    b.append(f'<ellipse cx="{cx}" cy="742" rx="300" ry="26" fill="{BLUE}" '
-             f'opacity="0.14" filter="url(#fSoft)"/>')
+    # hell butterfly crossing the page
+    b.append(deco(
+        f'<g>{butterfly(0, 0, 1.5)}'
+        f'<animateMotion dur="19s" repeatCount="indefinite" rotate="auto" '
+        f'path="M 1160 96 C 980 40 900 210 760 168 C 620 126 520 268 360 232 '
+        f'C 220 200 140 274 30 240"/></g>'))
 
-    b.append(f'<g transform="translate({cx} {cy})">{figure()}</g>')
+    # katana
+    b.append(f'<g transform="translate(374 664) rotate(41)">{katana()}</g>')
 
-    rnd = Rand(41)
-    embers = []
-    for i in range(22):
-        ex, ey = rnd.rng(500, 1160), rnd.rng(120, 740)
-        r = rnd.rng(1.2, 3.2)
-        o = rnd.rng(0.25, 0.7)
-        col = CYAN if i % 3 else VIOLET
-        embers.append(f'<circle cx="{ex:.0f}" cy="{ey:.0f}" r="{r:.1f}" fill="{col}" '
-                      f'opacity="{o:.2f}"><animate attributeName="opacity" '
-                      f'values="{o:.2f};0.05;{o:.2f}" dur="{3 + i % 5}s" '
-                      f'repeatCount="indefinite"/></circle>')
-    b.append(deco("".join(embers)))
+    # slash sweep
+    b.append(f'<g transform="rotate(41 600 400)">'
+             f'<rect y="392" width="300" height="5" fill="url(#gBlade)">'
+             f'<animate attributeName="x" values="-420;1330;1330" '
+             f'keyTimes="0;0.24;1" dur="8s" repeatCount="indefinite"/>'
+             f'</rect></g>')
 
     # copy block
-    b.append(T(88, 120, "CHAPTER 01 " + DOT + " AWAKENING", 12.5, SKY, 5.5, "600"))
-    b.append(f'<rect x="88" y="134" width="248" height="2" fill="{SKY}" opacity="0.7"/>')
-    b.append(T(88, 214, "\u5f71\u306e\u958b\u767a\u8005", 30, MUTED, 7, "600", family=JP))
+    b.append(T(88, 132, "BLEACH // CHAPTER 01", 12.5, ORANGE, 6, "700"))
+    b.append(f'<rect x="88" y="146" width="248" height="2" fill="{ORANGE}"/>')
+    b.append(T(88, 238, SHINIGAMI, 32, INK, 9, "600", family=JP, opacity=0.92))
 
-    b.append(f'<g transform="translate(92 348) skewX(-7)">'
-             + T(0, 0, PLAYER["name"], 106, "url(#gName)", 3, "900", family=HEAVY)
+    b.append(f'<g transform="translate(86 372) skewX(-4)">'
+             + T(0, 0, PLAYER["name"], 118, "url(#gName)", 2, "900", family=TITLE)
              + "</g>")
-    b.append(f'<g transform="translate(92 414) skewX(-7)">'
-             + T(0, 0, "SHADOW DEVELOPER", 25, SKY, 11, "700")
+    b.append(f'<g transform="translate(90 430) skewX(-4)">'
+             + T(0, 0, "SUBSTITUTE SHINIGAMI", 25, ORANGE, 12, "800")
              + "</g>")
-    b.append(f'<rect x="88" y="436" width="268" height="1" fill="{LINE2}"/>')
+    b.append(f'<rect x="88" y="452" width="300" height="1" fill="{LINE2}"/>')
 
-    b.append(T(88, 478, "Every developer starts at level 1.", 21, INK, 0.5, "400"))
-    b.append(T(88, 510, "Python " + DOT + " AI " + DOT + " computer vision " + DOT
-               + " offline-first Android", 14.5, MUTED, 0.4))
+    b.append(T(88, 494, "Every developer starts at level 1.", 21, INK, 0.4, "500"))
+    b.append(T(88, 526, "Python " + DOT + " AI " + DOT + " computer vision " + DOT
+               + " offline-first Android", 14.5, INK, 0.3, opacity=0.62))
 
-    b.append(f'<rect x="88" y="544" width="300" height="40" rx="2" fill="#07101F" '
-             f'stroke="{SKY}" stroke-width="1" opacity="0.9"/>')
-    b.append(f'<circle cx="112" cy="564" r="4.5" fill="{GREEN}" filter="url(#fGlow)">'
-             f'<animate attributeName="opacity" values="1;0.12;1" dur="2.2s" '
+    # reiatsu chip
+    b.append(f'<rect x="88" y="560" width="322" height="42" fill="#0B0B0D" '
+             f'stroke="{ORANGE}" stroke-width="1.2"/>')
+    b.append(f'<circle cx="112" cy="581" r="4.5" fill="{ORANGE}" filter="url(#fGlow)">'
+             f'<animate attributeName="opacity" values="1;0.1;1" dur="2s" '
              f'repeatCount="indefinite"/></circle>')
-    b.append(T(130, 569, "SYSTEM INITIALIZED", 12.5, SKY, 3.5, "600"))
+    b.append(T(132, 587, "REIATSU DETECTED", 12.5, ORANGE, 4, "700"))
 
-    b.append(T(88, 638, "LV", 15, DIM, 4, "600"))
-    b.append(T(122, 640, f"{PLAYER['level']:02d}", 34, INK, 1, "900", family=HEAVY))
-    b.append(f'<rect x="88" y="656" width="300" height="9" fill="#0B1526" '
-             f'stroke="{LINE2}" stroke-width="1"/>')
-    b.append(f'<rect x="88" y="656" '
-             f'width="{300 * PLAYER["exp_now"] / PLAYER["exp_max"]:.0f}" '
-             f'height="9" fill="{SKY}" opacity="0.85"/>')
-    b.append(T(400, 666, f"{PLAYER['exp_now']} / {PLAYER['exp_max']} EXP " + DOT
-               + " 123 COMMITS", 10.5, DIM, 2))
+    # spiritual pressure figure
+    b.append(T(88, 620, "REIATSU", 11, DIM, 4, "600"))
+    b.append(T(88, 700, f"{PLAYER['commits']}", 56, INK, 1, "900", family=TITLE))
+    b.append(T(196, 700, "COMMITS", 12, DIM, 4, "600"))
+    b.append(T(320, 700, "SEAT 16", 12, DIM, 4, "600"))
 
-    b.append(T(88, 738, "PLAYER " + PLAYER["handle"].upper(), 11.5, DIM, 3))
-    b.append(T(1112, 738, "STATUS: ONLINE", 11.5, GREEN, 3, anchor="end"))
+    # vertical 卍解
+    b.append(deco(T(1138, 640, "\u5345", 54, ORANGE, 0, "700", anchor="middle",
+                    family=JP, opacity=0.9)
+                  + T(1138, 720, "\u89e3", 54, ORANGE, 0, "700", anchor="middle",
+                      family=JP, opacity=0.9)))
 
-    b.append(deco(f'<g transform="translate(1150 150) rotate(90)">'
-                  + T(0, 0, "\u76ee\u899a\u3081\u3088\u3001\u5f71\u3088", 19, BLUE, 9,
-                      "600", family=JP, opacity=0.85) + "</g>"))
+    b.append(T(88, 766, "PLAYER " + PLAYER["handle"].upper(), 11, DIM, 3))
+    b.append(T(1112, 766, "STATUS: ONLINE", 11, ORANGE, 3, anchor="end"))
 
     return doc(w, h, "".join(b))
 
 
-# -- 2. player status: manga grid -----------------------------------------
+# -- 2. shinigami file -----------------------------------------------------
 def player():
-    w, h = 1200, 604
-    b = [page(w, h, BLUE, halftone=None)]
+    w, h = 1200, 640
+    b = [page(w, h, ORANGE, halftone=None)]
+    b.append(level_meta(w, "\u6b7b\u795e\u30d5\u30a1\u30a4\u30eb", "SHINIGAMI FILE"))
+    b.append(T(1160, 74, "REAL NUMBERS ONLY", 10, DIM, 2.4, anchor="end"))
 
-    b.append(mpanel(24, 24, 696, 304, 34, BLUE, "corner"))
-    b.append(T(56, 66, "\u72b6\u614b", 15, SKY, 6, "600", family=JP))
-    b.append(T(56, 92, "PLAYER STATUS", 12.5, MUTED, 5.5, "600"))
-    rows = [("PLAYER", PLAYER["handle"]), ("CLASS", PLAYER["klass"]),
-            ("RANK", PLAYER["rank"]), ("SPECIALIZATION", PLAYER["spec"]),
-            ("CURRENT QUEST", PLAYER["quest"])]
+    b.append(mpanel(24, 116, 700, 296, 30, ORANGE, "corner")[0])
+    b.append(T(56, 152, "\u767b\u9332", 12, DIM, 4, family=JP))
+    b.append(T(712, 152, "REGISTRY", 9.5, DIM, 3, anchor="end"))
+    rows = [("NAME", PLAYER["given"]), ("ROLE", PLAYER["role"]),
+            ("ZANPAKUTO", PLAYER["zanpakuto"]), ("SPECIALTY", PLAYER["spec"]),
+            ("CURRENT MISSION", PLAYER["quest"])]
     for i, (k, v) in enumerate(rows):
-        y = 146 + i * 38
-        b.append(T(56, y, k, 10.5, DIM, 3.6))
-        b.append(T(268, y, v, 16.5, INK, 1.2, "600"))
-        b.append(f'<rect x="56" y="{y + 12}" width="632" height="1" fill="{LINE}" '
-                 f'opacity="0.8"/>')
+        y = 190 + i * 40
+        b.append(T(56, y, k, 10, DIM, 3.4))
+        b.append(T(240, y, v, 16.5, INK, 1.1, "600"))
+        b.append(f'<rect x="56" y="{y + 13}" width="636" height="1" fill="{LINE}"/>')
 
-    b.append(mpanel(736, 24, 440, 304, 34, GOLD, "corner"))
-    b.append(T(768, 66, "\u7b49\u7d1a", 15, GOLD, 6, "600", family=JP))
-    b.append(T(768, 92, "LEVEL", 12.5, MUTED, 5.5, "600"))
-    b.append(T(768, 216, f"{PLAYER['level']:02d}", 108, INK, 0, "900", family=HEAVY))
-    b.append(T(1144, 108, "E " + ARROW + " S", 22, GOLD, 4, "700", anchor="end"))
-    b.append(T(1144, 132, "PROGRESSION", 9.5, DIM, 3, anchor="end"))
-    b.append(f'<rect x="768" y="248" width="376" height="10" fill="#0B1526" '
-             f'stroke="{LINE2}" stroke-width="1"/>')
-    b.append(f'<rect x="768" y="248" '
-             f'width="{376 * PLAYER["exp_now"] / PLAYER["exp_max"]:.0f}" '
-             f'height="10" fill="{GOLD}" opacity="0.85"/>')
-    b.append(T(768, 292, f"{PLAYER['exp_now']} / {PLAYER['exp_max']} EXP TO LV "
-               f"{PLAYER['level'] + 1}", 11, DIM, 2.5))
+    b.append(mpanel(740, 116, 436, 296, 30, ORANGE, "corner")[0])
+    b.append(T(772, 152, "\u970a\u5727", 12, DIM, 4, family=JP))
+    b.append(T(1144, 152, "REIATSU", 9.5, DIM, 3, anchor="end"))
+    b.append(f'<ellipse cx="960" cy="286" rx="150" ry="86" fill="url(#gRei)" '
+             f'opacity="0.35">'
+             f'<animate attributeName="opacity" values="0.22;0.5;0.22" dur="4.5s" '
+             f'repeatCount="indefinite"/></ellipse>')
+    b.append(T(772, 300, f"{PLAYER['commits']}", 92, INK, 1, "900", family=TITLE))
+    b.append(T(772, 336, "COMMITS", 10.5, DIM, 4, "600"))
+    b.append(T(1144, 300, "SEAT", 9.5, DIM, 3.4, anchor="end"))
+    b.append(T(1144, 336, f"{PLAYER['seat']:02d}", 30, ORANGE, 1, "900",
+               anchor="end", family=TITLE))
+    b.append(T(1144, 358, "THEMATIC", 8.5, DIM, 2, anchor="end"))
 
-    tiles = [(f"{PLAYER['commits']}", "COMMITS", "\u63a8\u9032", CYAN),
-             (f"{PLAYER['repos']:02d}", "PUBLIC REPOS", "\u4f5c\u54c1", SKY),
-             (f"{PLAYER['languages']:02d}", "LANGUAGES", "\u8a9e\u5f59", VIOLET),
-             (f"{PLAYER['tests']}", "PASSING TESTS", "\u8a66\u9a13", GREEN)]
+    tiles = [(f"{PLAYER['commits']}", "COMMITS", "\u63a8\u9032", ORANGE),
+             (f"{PLAYER['repos']:02d}", "PUBLIC REPOS", "\u4f5c\u54c1", PALE),
+             (f"{PLAYER['languages']:02d}", "LANGUAGES", "\u8a00\u8a9e", RED),
+             (f"{PLAYER['tests']}", "PASSING TESTS", "\u8a66\u9a13", GOLD)]
     tw = (1200 - 48 - 3 * 14) / 4
     for i, (val, label, jp, col) in enumerate(tiles):
         x = 24 + i * (tw + 14)
-        b.append(mpanel(x, 348, tw, 232, 28, col, "bottom"))
-        b.append(T(x + 22, 386, jp, 13, col, 5, "600", family=JP))
-        b.append(T(x + 22, 408, label, 10, MUTED, 3.4, "600"))
-        b.append(T(x + 22, 500, val, 62, INK, 0, "900", family=HEAVY))
-        b.append(f'<rect x="{x + 22}" y="524" width="{tw - 44}" height="1" '
-                 f'fill="{col}" opacity="0.5"/>')
+        b.append(mpanel(x, 432, tw, 180, 26, col, "bottom")[0])
+        b.append(T(x + 22, 468, jp, 12.5, col, 5, "600", family=JP))
+        b.append(T(x + 22, 490, label, 9.5, DIM, 3.2, "600"))
+        b.append(T(x + 22, 566, val, 54, INK, 0, "900", family=TITLE))
+        b.append(f'<rect x="{x + 22}" y="578" width="{tw - 44}" height="2" '
+                 f'fill="{col}" opacity="0.55"/>')
 
-    b.append(T(24, 592, "RANK IS PROGRESSION, NOT A CERTIFICATION " + DOT
+    b.append(T(24, 628, "SEAT IS PROGRESSION, NOT A RANK " + DOT
                + " COUNTS READ FROM THE GITHUB API", 9.5, DIM, 2))
-
     return doc(w, h, "".join(b))
 
 
-# -- 3. abilities ----------------------------------------------------------
+# -- 3. zanpakuto releases -------------------------------------------------
 def abilities():
-    w, h = 1200, 520
-    b = [page(w, h, SKY, halftone=None)]
-    b.append(level_meta(w, h, "\u80fd\u529b", "HUNTER ABILITIES", SKY))
+    w, h = 1200, 540
+    b = [page(w, h, PALE, halftone=None)]
+    b.append(level_meta(w, "\u65ac\u9b44\u5200", "ZANPAKUTO " + DOT + " THREE RELEASES",
+                        PALE))
     b.append(T(1160, 74, "NO PERCENTAGES", 10, DIM, 2.4, anchor="end"))
 
     cw = (1200 - 48 - 2 * 16) / 3
-    for i, (jp, label, sub, items, col) in enumerate(ABILITIES):
+    for i, (jp, name, tier, sub, items, col) in enumerate(ABILITIES):
         x = 24 + i * (cw + 16)
-        b.append(mpanel(x, 112, cw, 372, 32, col, "bottom"))
-        b.append(deco(T(x + cw - 26, 452, jp, 128, col, 0, "700", anchor="end",
-                        family=JP, opacity=0.06)))
-        b.append(T(x + 26, 158, jp, 15, col, 6, "600", family=JP))
-        b.append(T(x + 26, 182, label, 11, MUTED, 5, "600"))
-        b.append(T(x + 26, 202, sub, 10, DIM, 2.6))
-        b.append(f'<rect x="{x + 26}" y="216" width="{cw - 52}" height="1" '
+        panel, cid = mpanel(x, 116, cw, 348, 28, col, "bottom")
+        b.append(panel)
+        b.append(deco(T(x + cw - 24, 430, jp, 118, col, 0, "700", anchor="end",
+                        family=JP, opacity=0.07)))
+        b.append(T(x + 24, 160, jp, 20, col, 4, "700", family=JP))
+        b.append(T(x + 24, 186, name, 15, INK, 5, "700"))
+        b.append(T(x + 24, 206, tier + " " + DOT + " " + sub, 9.5, DIM, 2.4))
+        b.append(f'<rect x="{x + 24}" y="220" width="{cw - 48}" height="1" '
                  f'fill="{LINE2}"/>')
         for j, it in enumerate(items):
-            y = 254 + j * 34
-            b.append(f'<path d="M{x + 26} {y - 5} l7 5 l-7 5 l-7 -5 Z" fill="{col}" '
-                     f'opacity="0.55"/>')
-            b.append(T(x + 46, y, it, 16, INK, 0.6, "500"))
+            y = 256 + j * 32
+            b.append(f'<path d="M{x + 24} {y - 4} l5 4 l-5 4 l-5 -4 Z" fill="{col}" '
+                     f'opacity="0.7"/>')
+            b.append(T(x + 42, y, it, 15.5, INK, 0.5))
+        # charging reiatsu underline
+        b.append(f'<g clip-path="url(#{cid})">'
+                 f'<rect x="{x + 24}" y="446" height="2" fill="{col}" opacity="0.8" '
+                 f'width="0">'
+                 f'<animate attributeName="width" '
+                 f'values="0;{cw - 48:.0f};{cw - 48:.0f};0" '
+                 f'keyTimes="0;0.35;0.8;1" dur="6s" begin="{i * 0.5}s" '
+                 f'repeatCount="indefinite"/></rect></g>')
 
-    b.append(T(24, 508, "\u6697\u304f\u3066\u3082\u3001\u9032\u3080", 11, DIM, 4,
-               family=JP))
+    b.append(T(24, 512, "\u5207\u308a\u958b\u3051\u308d", 11, INK, 5, family=JP,
+               opacity=0.5))
     return doc(w, h, "".join(b))
 
 
-# -- 4. quest panels -------------------------------------------------------
+# -- 4. mission cards ------------------------------------------------------
 def quest_card(q, idx):
-    w, h = 1200, 268
-    accent = GOLD if q["rank"] == "S" else SKY
-    status_col = GREEN if q["status"] == "CLEARED" else accent
+    w, h = 1200, 276
+    accent = GOLD if q["rank"] == "S" else PALE
+    status_col = ORANGE if q["status"] != "SEALED" else PALE
     b = [page(w, h, accent, halftone=None)]
 
-    b.append(T(24, 34, f"\u4f9d\u983c {idx:02d}", 12.5, accent, 5, "600", family=JP))
-    b.append(T(150, 34, q["jp"], 13, DIM, 5, family=JP))
+    b.append(T(24, 34, f"\u4efb\u52d9 {idx:02d}", 12.5, accent, 5, "700", family=JP))
+    b.append(T(168, 34, q["threat"], 10, DIM, 3.6, "600"))
 
-    b.append(mpanel(24, 48, 1152, 190, 40, accent, "corner"))
+    panel, cid = mpanel(24, 48, 1152, 196, 38, accent, "corner")
+    b.append(panel)
 
-    b.append(stamp(104, 143, 39, q["rank"], accent, rot=-8, size=34))
-    b.append(T(104, 198, "RANK", 9, DIM, 2.6, anchor="middle"))
+    # sheen sweep, clipped to the panel
+    b.append(f'<g clip-path="url(#{cid})">'
+             f'<rect y="48" width="180" height="196" fill="url(#gSheen)" opacity="0.5">'
+             f'<animate attributeName="x" values="24;1180;1180" '
+             f'keyTimes="0;0.3;1" dur="7s" begin="{idx * 0.9}s" '
+             f'repeatCount="indefinite"/></rect></g>')
 
-    b.append(T(166, 126, q["name"], 31, INK, 1.2, "900", family=HEAVY))
-    b.append(T(166, 154, q["kind"], 11.5, MUTED, 3.6, "600"))
-    b.append(T(166, 182, q["jp"], 12.5, accent, 4, "500", family=JP, opacity=0.9))
+    b.append(seal(104, 146, 38, q["rank"], accent, rot=-8, size=32))
+    b.append(T(104, 200, "THREAT", 8.5, DIM, 2.4, anchor="middle"))
 
-    # description, two lines max, in its own column clear of long names
-    for i, line in enumerate(wrap(q["desc"], 82)[:2]):
-        b.append(T(548, 130 + i * 24, line, 14, "#CFDCEA", 0.3))
+    b.append(T(168, 128, q["name"], 30, INK, 1, "900", family=TITLE))
+    b.append(T(168, 156, q["kind"], 11, INK, 3.4, "600", opacity=0.72))
+    b.append(T(168, 184, q["jp"], 12.5, accent, 4, "600", family=JP))
 
-    b.append(T(1144, 200, q["tech"], 11, VIOLET, 0.8, anchor="end", opacity=0.95))
+    for i, line in enumerate(wrap(q["desc"], 80)[:2]):
+        b.append(T(548, 134 + i * 24, line, 13.5, INK, 0.3, opacity=0.8))
 
-    sw = 158
+    b.append(T(1152, 206, q["tech"], 10.5, RED, 0.8, anchor="end", opacity=0.95))
+
+    sw = 168
     b.append(f'<g transform="rotate(-2 1085 79)">'
-             f'<rect x="{1144 - sw}" y="66" width="{sw}" height="26" fill="#05080F" '
-             f'stroke="{status_col}" stroke-width="1" opacity="0.9"/>'
-             + T(1144 - sw / 2, 84, q["status"], 10.5, status_col, 2.4, "700",
+             f'<rect x="{1152 - sw}" y="66" width="{sw}" height="26" fill="#060607" '
+             f'stroke="{status_col}" stroke-width="1"/>'
+             + T(1152 - sw / 2, 84, q["status"], 10, status_col, 2.2, "700",
                  anchor="middle") + "</g>")
 
     return doc(w, h, "".join(b))
@@ -583,95 +612,117 @@ def quest_card(q, idx):
 
 # -- 5. mission ------------------------------------------------------------
 def mission():
-    w, h = 1200, 440
-    b = [page(w, h, VIOLET, halftone=None)]
-    b.append(level_meta(w, h, "\u6b21\u306e\u4efb\u52d9", "CURRENT OBJECTIVE", VIOLET))
+    w, h = 1200, 460
+    b = [page(w, h, RED, halftone=None)]
+    b.append(level_meta(w, "\u5345\u89e3", "BANKAI " + DOT + " CURRENT OBJECTIVE", RED))
     b.append(T(1160, 74, "WHAT I AM DOING NOW", 10, DIM, 2.4, anchor="end"))
 
-    b.append(f'<ellipse cx="600" cy="180" rx="430" ry="120" fill="url(#gAura)" '
-             f'opacity="0.5"/>')
-    b.append(f'<g transform="translate(60 182) skewX(-5)">'
-             + T(0, 0, "\u201cTransform ideas into working software.\u201d", 36, INK,
-                 0.6, "700", family=SANS) + "</g>")
-    b.append(T(62, 216, "\u601d\u8003\u3092\u3001\u52d5\u304f\u5f62\u3078\u3002", 15,
-               VIOLET, 5, "600", family=JP))
+    b.append(f'<ellipse cx="600" cy="196" rx="430" ry="126" fill="url(#gRei)" '
+             f'opacity="0.28">'
+             f'<animate attributeName="opacity" values="0.16;0.4;0.16" dur="6s" '
+             f'repeatCount="indefinite"/></ellipse>')
+    b.append(T(60, 186, "\u201cTransform ideas into working software.\u201d", 36, INK,
+               0.5, "700"))
+    b.append(T(62, 220, "\u601d\u8003\u3092\u3001\u52d5\u304f\u5f62\u3078\u3002", 15,
+               RED, 5, "600", family=JP))
+    b.append(f'<rect x="60" y="240" height="1.5" fill="{RED}" opacity="0.8" width="0">'
+             f'<animate attributeName="width" values="0;1080;1080" '
+             f'keyTimes="0;0.4;1" dur="5s" repeatCount="indefinite"/></rect>')
 
     for i, (num, title, note) in enumerate(GOALS):
         x = 60 + i * 364
-        b.append(mpanel(x, 250, 340, 140, 26, VIOLET, "corner"))
-        b.append(T(x + 24, 288, num, 12, VIOLET, 3, "800", family=HEAVY))
-        b.append(T(x + 24, 316, title, 14.5, INK, 2, "700"))
+        b.append(mpanel(x, 268, 340, 128, 24, RED, "corner")[0])
+        b.append(T(x + 22, 302, num, 11.5, RED, 3, "800", family=TITLE))
+        b.append(T(x + 22, 328, title, 14, INK, 2, "700"))
         for j, line in enumerate(wrap(note, 34)[:2]):
-            b.append(T(x + 24, 340 + j * 18, line, 11.5, MUTED, 0.3))
+            b.append(T(x + 22, 350 + j * 19, line, 11, INK, 0.3, opacity=0.65))
 
-    b.append(T(24, 422, "OBJECTIVES ARE SELF-SET " + DOT + " NO DEADLINES PROMISED",
+    b.append(T(24, 442, "OBJECTIVES ARE SELF-SET " + DOT + " NO DEADLINES PROMISED",
                9.5, DIM, 2))
     return doc(w, h, "".join(b))
 
 
-# -- 6. log + rewards ------------------------------------------------------
+# -- 6. log + honours ------------------------------------------------------
 def log_panel():
-    w, h = 1200, 604
-    b = [page(w, h, CYAN, halftone=None)]
-    b.append(level_meta(w, h, "\u8a18\u9332", "SYSTEM LOG", CYAN))
+    w, h = 1200, 620
+    b = [page(w, h, PALE, halftone=None)]
+    b.append(level_meta(w, "\u8a18\u9332", "SYSTEM LOG", PALE))
     b.append(T(1160, 74, "FROM THE GITHUB API", 10, DIM, 2.4, anchor="end"))
 
-    b.append(mpanel(24, 116, 700, 428, 32, CYAN, "bottom"))
+    log_panel, log_clip = mpanel(24, 116, 700, 440, 30, PALE, "bottom")
+    b.append(log_panel)
+    b.append(f'<g clip-path="url(#{log_clip})">'
+             f'<rect y="116" width="170" height="440" fill="url(#gSheen)" '
+             f'opacity="0.30">'
+             f'<animate attributeName="x" values="24;720;720" keyTimes="0;0.32;1" '
+             f'dur="9s" repeatCount="indefinite"/></rect></g>')
     b.append(T(56, 156, "\u6700\u8fd1\u306e\u63a8\u9032", 12, DIM, 4, family=JP))
-    b.append(T(692, 156, "RECENT PUSHES", 10, DIM, 3, anchor="end"))
+    b.append(f'<circle cx="614" cy="152" r="3.5" fill="{ORANGE}" filter="url(#fGlow)">'
+             f'<animate attributeName="opacity" values="1;0.15;1" dur="2.6s" '
+             f'repeatCount="indefinite"/></circle>')
+    b.append(T(692, 156, "RECENT PUSHES", 9.5, DIM, 3, anchor="end"))
     for i, (date, repo, lang) in enumerate(LOG):
-        y = 200 + i * 62
-        b.append(T(56, y, date, 12, DIM, 1.4))
-        b.append(T(184, y, repo, 17, INK, 0.6, "600"))
-        b.append(T(692, y, lang, 11.5, CYAN, 1.8, anchor="end"))
-        b.append(f'<rect x="56" y="{y + 14}" width="636" height="1" fill="{LINE}" '
-                 f'opacity="0.8"/>')
+        y = 202 + i * 64
+        b.append(T(56, y, date, 11.5, DIM, 1.4))
+        b.append(T(184, y, repo, 17, INK, 0.5, "600"))
+        b.append(T(692, y, lang, 11, PALE, 1.8, anchor="end"))
+        b.append(f'<rect x="56" y="{y + 15}" width="636" height="1" fill="{LINE}"/>')
 
-    b.append(mpanel(748, 116, 428, 428, 32, GOLD, "bottom"))
-    b.append(T(780, 156, "\u8912\u8cde", 12, DIM, 4, family=JP))
-    b.append(T(1144, 156, "REWARDS", 10, DIM, 3, anchor="end"))
+    b.append(mpanel(748, 116, 428, 440, 30, GOLD, "bottom")[0])
+    b.append(T(780, 156, "\u52f2\u7ae0", 12, DIM, 4, family=JP))
+    b.append(T(1144, 156, "HONOURS", 9.5, DIM, 3, anchor="end"))
     for i, (title, note) in enumerate(REWARDS):
-        y = 196 + i * 112
-        b.append(f'<g transform="rotate(-1.4 960 {y + 30})">'
-                 f'<rect x="780" y="{y}" width="364" height="92" fill="#070C17" '
-                 f'stroke="{GOLD}" stroke-width="1" opacity="0.55" '
-                 f'stroke-dasharray="5 4"/></g>')
-        b.append(T(800, y + 32, title, 16, GOLD, 2.4, "800", family=HEAVY))
-        for j, line in enumerate(wrap(note, 42)[:2]):
-            b.append(T(800, y + 56 + j * 18, line, 11.5, MUTED, 0.4))
+        y = 192 + i * 118
+        b.append(f'<g transform="rotate(-1.2 960 {y + 34})">'
+                 f'<rect x="780" y="{y}" width="364" height="98" fill="#070708" '
+                 f'stroke="{GOLD}" stroke-width="1" opacity="0.6" '
+                 f'stroke-dasharray="6 4"/></g>')
+        b.append(T(802, y + 34, title, 16, GOLD, 2.2, "800", family=HEAVY))
+        for j, line in enumerate(wrap(note, 40)[:2]):
+            b.append(T(802, y + 58 + j * 19, line, 11, INK, 0.3, opacity=0.7))
 
-    b.append(T(24, 590, "REWARDS ARE SHIPPED WORK " + DOT
-               + " RANKS SHOW DIFFICULTY, NOT A CERTIFICATE", 9.5, DIM, 2))
+    b.append(T(24, 606, "HONOURS ARE SHIPPED WORK " + DOT
+               + " THREAT CLASS IS THEMATIC, NOT A CERTIFICATE", 9.5, DIM, 2))
     return doc(w, h, "".join(b))
 
 
 # -- 7. finale -------------------------------------------------------------
 def footer():
-    w, h = 1200, 452
-    b = [page(w, h, VIOLET, halftone="bottom")]
+    w, h = 1200, 470
+    b = [page(w, h, ORANGE, halftone="bottom")]
 
-    b.append(deco(speedlines(600, 250, 120, 820, 54, VIOLET, 77, (0.04, 0.14))))
-    b.append(f'<ellipse cx="600" cy="210" rx="430" ry="150" fill="url(#gAura)" '
-             f'opacity="0.6"/>')
+    b.append(deco(reiatsu_rings(600, 250, ORANGE, 3, 6.0)))
 
-    b.append(f'<g transform="translate(560 218) skewX(-6)">'
-             + T(0, 0, "TO BE CONTINUED", 62, "url(#gName)", 2, "900",
-                 anchor="middle", family=HEAVY) + "</g>")
+    # bankai flash
+    b.append(f'<rect width="{w}" height="{h}" fill="#FFFFFF" opacity="0">'
+             f'<animate attributeName="opacity" '
+             f'values="0;0;0.12;0;0;0;0" keyTimes="0;0.62;0.66;0.72;0.8;0.94;1" '
+             f'dur="7s" repeatCount="indefinite"/></rect>')
 
-    b.append(f'<g transform="rotate(-2 1000 200)">'
-             f'<path d="M 950,186 L 1010,186 L 1010,178 L 1042,196 L 1010,214 '
-             f'L 1010,206 L 950,206 Z" fill="{SKY}" opacity="0.9"/></g>')
+    # 卍解 drawn on with a stroke sweep
+    b.append(deco(f'<g transform="translate(600 196)">'
+                  + f'<text x="0" y="0" font-family="{JP}" font-size="112" '
+                    f'font-weight="700" fill="none" stroke="{ORANGE}" '
+                    f'stroke-width="1.5" text-anchor="middle" '
+                    f'letter-spacing="10" opacity="0.55" '
+                    f'stroke-dasharray="1600" stroke-dashoffset="1600">'
+                    f'{BANKAI}'
+                    f'<animate attributeName="stroke-dashoffset" '
+                    f'values="1600;0;0" keyTimes="0;0.35;1" dur="7s" '
+                    f'repeatCount="indefinite"/></text>'
+                  + T(0, 0, BANKAI, 112, "url(#gName)", 10, "700",
+                      anchor="middle", family=JP)
+                  + "</g>"))
 
-    b.append(T(600, 272, "\u3064\u3065\u304f", 30, MUTED, 10, "600",
+    b.append(T(600, 300, "THE STORY CONTINUES", 40, INK, 3, "900",
+               anchor="middle", family=TITLE))
+    b.append(T(600, 366, "\u7d9a\u304f", 24, ORANGE, 10, "600",
                anchor="middle", family=JP))
-    b.append(f'<rect x="420" y="296" width="360" height="1" fill="{LINE2}"/>')
-
-    b.append(T(600, 344, "Keep building. Keep learning. Keep leveling up.", 20,
-               INK, 0.6, "500", anchor="middle"))
-    b.append(T(600, 384, "PLAYER: MAHESH " + DOT + " SYSTEM STATUS: ALWAYS EVOLVING",
-               11, SKY, 3.4, "600", anchor="middle"))
-    b.append(T(600, 428, "HAND-DRAWN SVG " + DOT + " NO TRACKING " + DOT
-               + " REAL NUMBERS", 9, DIM, 2.6, anchor="middle"))
+    b.append(f'<rect x="420" y="390" width="360" height="1" fill="{LINE2}"/>')
+    b.append(T(600, 426, "Keep building. Keep learning. Keep leveling up.", 17,
+               INK, 0.5, "500", anchor="middle", opacity=0.85))
+    b.append(T(600, 452, "PLAYER: MAHESH " + DOT + " SYSTEM STATUS: ALWAYS EVOLVING",
+               10, ORANGE, 3.2, "600", anchor="middle"))
     return doc(w, h, "".join(b))
 
 

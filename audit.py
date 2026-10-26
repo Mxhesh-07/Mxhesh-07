@@ -22,7 +22,7 @@ PREVIEW = Path(__file__).parent / "preview"
 HUES = {
     "cyan/blue": (175, 215),
     "violet": (240, 288),
-    "gold": (30, 60),
+    "orange/gold": (15, 60),
     "green": (140, 175),
     "rose": (330, 360),
 }
