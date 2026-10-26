@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420"
+     viewBox="0 0 1200 420" role="img">
+
+<defs>
+  <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="5" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="14" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#04060e"/>
+    <stop offset="0.55" stop-color="#0a1124"/>
+    <stop offset="1" stop-color="#050a17"/>
+  </linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#4fc3ff" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#4fc3ff" stop-opacity="0.9"/>
+    <stop offset="1" stop-color="#4fc3ff" stop-opacity="0"/>
+  </linearGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0 H0 V40" fill="none" stroke="#1d3557" stroke-width="1" opacity="0.55"/>
+  </pattern>
+  <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+    <rect width="4" height="1" fill="#9fd0ff" opacity="0.10"/>
+  </pattern>
+  <radialGradient id="vig" cx="0.5" cy="0.45" r="0.75">
+    <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+  </radialGradient>
+  <radialGradient id="bloom" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#a78bfa" stop-opacity="0.55"/>
+    <stop offset="0.45" stop-color="#a78bfa" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+  <g>
+    <path d="M27,1 L1173,1 L1199,27 L1199,393 L1173,419 L27,419 L1,393 L1,27 Z" fill="url(#bg)" stroke="#1d3557" stroke-width="1.5"/>
+    <path d="M27,1 L1173,1 L1199,27 L1199,393 L1173,419 L27,419 L1,393 L1,27 Z" fill="url(#grid)" opacity="0.5"/>
+    <path d="M27,1 L1173,1 L1199,27 L1199,393 L1173,419 L27,419 L1,393 L1,27 Z" fill="url(#vig)"/>
+    <rect x="0" y="0" width="1200" height="420" fill="url(#scan)" opacity="0.30">
+      <animate attributeName="y" from="-420" to="420" dur="7s" repeatCount="indefinite"/>
+    </rect>
+    <path d="M27,1 L1,1 L1,27" stroke="#4fc3ff" stroke-width="2.5" fill="none" opacity="0.9"/><path d="M1173,1 L1199,1 L1199,27" stroke="#4fc3ff" stroke-width="2.5" fill="none" opacity="0.9"/><path d="M27,419 L1,419 L1,393" stroke="#4fc3ff" stroke-width="2.5" fill="none" opacity="0.9"/><path d="M1173,419 L1199,419 L1199,393" stroke="#4fc3ff" stroke-width="2.5" fill="none" opacity="0.9"/>
+    
+  </g>
+  <g opacity="0.35"><rect x="760" y="0" width="2" height="420" fill="#4fc3ff" opacity="0.1"/><rect x="806" y="0" width="2" height="420" fill="#4fc3ff" opacity="0.13"/><rect x="852" y="0" width="2" height="420" fill="#4fc3ff" opacity="0.16"/><rect x="898" y="0" width="2" height="420" fill="#4fc3ff" opacity="0.19"/><rect x="944" y="0" width="2" height="420" fill="#4fc3ff" opacity="0.22"/></g><text x="44" y="62" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#4a648c" letter-spacing="5" text-anchor="start" opacity="1.0" >SYSTEM // PLAYER PROFILE</text><circle cx="1046" cy="58" r="4" fill="#4ade80" filter="url(#glow)"><animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/></circle><text x="1060" y="62" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#4ade80" letter-spacing="4" text-anchor="start" opacity="1.0" >ONLINE</text><g filter="url(#soft)" opacity="0.45" data-deco="1"><text x="44" y="172" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="66" font-weight="700" fill="#4fc3ff" letter-spacing="7" text-anchor="start" opacity="1.0" >MAHESH S</text></g><text x="44" y="172" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="66" font-weight="700" fill="#e6f0ff" letter-spacing="7" text-anchor="start" opacity="1.0" >MAHESH S</text><text x="46" y="214" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="17" font-weight="400" fill="#9dc4f0" letter-spacing="4" text-anchor="start" opacity="1.0" >I BUILD SYSTEMS THAT SEE, HEAR, AND ACT.</text><rect x="44" y="242" width="620" height="1.5" fill="url(#edge)" opacity="0.8"/><text x="44" y="278" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >JOB</text><text x="146" y="278" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="16" font-weight="700" fill="#e6f0ff" letter-spacing="2.5" text-anchor="start" opacity="1.0" >PYTHON DEVELOPER</text><text x="44" y="306" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >TITLE</text><text x="146" y="306" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="16" font-weight="700" fill="#e6f0ff" letter-spacing="2.5" text-anchor="start" opacity="1.0" >THE ONE WHO BUILDS ALONE</text><text x="44" y="334" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >GUILD</text><text x="146" y="334" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="16" font-weight="700" fill="#e6f0ff" letter-spacing="2.5" text-anchor="start" opacity="1.0" >SHREE DEVI INSTITUTE</text><polygon points="1018.00,72.00 1108.07,124.00 1108.07,228.00 1018.00,280.00 927.93,228.00 927.93,124.00" fill="rgba(11,26,48,0.85)" stroke="#4fc3ff" stroke-width="2" opacity="0.95"/><polygon points="1064.00,96.33 1110.00,176.00 1064.00,255.67 972.00,255.67 926.00,176.00 972.00,96.33" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.45"/><g filter="url(#glow)"><polygon points="1018.00,72.00 1108.07,124.00 1108.07,228.00 1018.00,280.00 927.93,228.00 927.93,124.00" fill="none" stroke="#4fc3ff" stroke-width="2.5" opacity="0.9"/></g><text x="1018" y="130" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="12" font-weight="400" fill="#8aa4c8" letter-spacing="6" text-anchor="middle" opacity="1.0" >LEVEL</text><text x="1018" y="194" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="62" font-weight="700" fill="#e6f0ff" letter-spacing="2" text-anchor="middle" opacity="1.0" >16</text><text x="1018" y="226" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="13" font-weight="700" fill="#fbbf24" letter-spacing="4" text-anchor="middle" opacity="1.0" >RANK B</text><g opacity="0.5"><animateTransform attributeName="transform" type="rotate" from="0 1018 176" to="360 1018 176" dur="26s" repeatCount="indefinite"/><circle cx="1018" cy="176" r="120" fill="none" stroke="#4a648c" stroke-width="1" stroke-dasharray="3 14"/></g><rect x="44" y="356" width="1112" height="1" fill="#1d3557"/><text x="44" y="390" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="26" font-weight="700" fill="#4fc3ff" letter-spacing="2" text-anchor="start" opacity="1.0" >06</text><text x="44" y="410" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >DUNGEONS</text><text x="330" y="390" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="26" font-weight="700" fill="#4fc3ff" letter-spacing="2" text-anchor="start" opacity="1.0" >123</text><text x="330" y="410" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >COMMITS</text><text x="590" y="390" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="26" font-weight="700" fill="#4fc3ff" letter-spacing="2" text-anchor="start" opacity="1.0" >422</text><text x="590" y="410" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >TESTS PASSING</text><text x="860" y="390" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="26" font-weight="700" fill="#4fc3ff" letter-spacing="2" text-anchor="start" opacity="1.0" >11</text><text x="860" y="410" font-family="ui-monospace,'SF Mono','Cascadia Mono','DejaVu Sans Mono',Consolas,'Liberation Mono',monospace" font-size="11" font-weight="400" fill="#4a648c" letter-spacing="4" text-anchor="start" opacity="1.0" >LANGUAGES</text>
+</svg>
