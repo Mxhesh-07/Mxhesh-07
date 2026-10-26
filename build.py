@@ -223,6 +223,11 @@ def defs():
     <stop offset="0.5" stop-color="{ORANGE}" stop-opacity="0.55"/>
     <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
   </linearGradient>
+  <linearGradient id="gBody" x1="0" y1="0" x2="0.25" y2="1">
+    <stop offset="0" stop-color="#23232B"/>
+    <stop offset="0.45" stop-color="#1A1A21"/>
+    <stop offset="1" stop-color="#121216"/>
+  </linearGradient>
   <linearGradient id="gFadeUp" x1="0" y1="1" x2="0" y2="0">
     <stop offset="0" stop-color="{BG}" stop-opacity="1"/>
     <stop offset="1" stop-color="{BG}" stop-opacity="0"/>
@@ -398,24 +403,169 @@ def katana():
     return "".join(p)
 
 
+HAIR = "#FF7A18"
+HAIR_D = "#A83404"
+BODY = "#0A0A0C"
+
+
+def hair_spikes(cx, cy, rx, ry, seed=3):
+    """Shaggy crown of triangular shards - the one unmistakable silhouette cue."""
+    rnd = Rand(seed)
+    out = []
+    for i in range(13):
+        a0 = math.radians(168 + i * 184 / 13)
+        a1 = math.radians(168 + (i + 1) * 184 / 13)
+        am = (a0 + a1) / 2 + math.radians(rnd.rng(-4, 4))
+        k = rnd.rng(1.14, 1.55)
+        p0 = (cx + math.cos(a0) * rx, cy + math.sin(a0) * ry)
+        p1 = (cx + math.cos(a1) * rx, cy + math.sin(a1) * ry)
+        tip = (cx + math.cos(am) * rx * k, cy + math.sin(am) * ry * k)
+        out.append(f'<polygon points="{p0[0]:.0f},{p0[1]:.0f} '
+                   f'{tip[0]:.0f},{tip[1]:.0f} {p1[0]:.0f},{p1[1]:.0f}" '
+                   f'fill="{HAIR}"/>')
+    # darker strands for depth
+    for i in range(7):
+        a = math.radians(182 + i * 25)
+        p0 = (cx + math.cos(a) * rx * 0.35, cy + math.sin(a) * ry * 0.35)
+        p1 = (cx + math.cos(a + 0.14) * rx * 0.42,
+              cy + math.sin(a + 0.14) * ry * 0.42)
+        tip = (cx + math.cos(a + 0.05) * rx * 0.98,
+               cy + math.sin(a + 0.05) * ry * 0.98)
+        out.append(f'<polygon points="{p0[0]:.0f},{p0[1]:.0f} '
+                   f'{tip[0]:.0f},{tip[1]:.0f} {p1[0]:.0f},{p1[1]:.0f}" '
+                   f'fill="{HAIR_D}" opacity="0.85"/>')
+    return "".join(out)
+
+
+def cleaver():
+    """Giant slab of a zanpakuto, local coords: edge up (-y), grip down."""
+    p = [f'<path d="M -34,40 L 30,40 L 46,-296 L 14,-382 L -30,-350 Z" '
+         f'fill="{BODY}" stroke="{INK}" stroke-width="2.2" '
+         f'stroke-opacity="0.85"/>',
+         '<path d="M 30,40 L 46,-296 L 14,-382" fill="none" stroke="#FFFFFF" '
+         'stroke-width="3.4" opacity="0.92"/>',
+         f'<path d="M -14,16 L -4,-322" stroke="{ORANGE}" stroke-width="1.6" '
+         f'opacity="0.32"/>',
+         '<rect x="-19" y="28" width="38" height="104" rx="4" fill="#131316" '
+         'stroke="#2C2C32" stroke-width="1.2"/>']
+    for i in range(4):
+        y = 40 + i * 24
+        p.append(f'<path d="M -19,{y} L 0,{y + 12} L 19,{y} L 0,{y - 12} Z" '
+                 f'fill="none" stroke="{ORANGE}" stroke-width="1.1" '
+                 f'opacity="0.5"/>')
+    p.append(f'<circle cx="0" cy="136" r="5" fill="none" stroke="#3A3A40" '
+             f'stroke-width="1.4"/>')
+    return "".join(p)
+
+
+def fighter():
+    """Cropped bust of a substitute shinigami, seen from behind, backlit."""
+    cx, cy, rx, ry = 980, 300, 66, 80
+    torso = ("M 800,800 L 796,640 C 796,560 806,500 820,478 "
+             "C 866,452 900,436 934,424 L 936,388 L 1024,388 L 1026,424 "
+             "C 1060,436 1094,452 1140,478 C 1154,500 1164,560 1164,640 "
+             "L 1160,800 Z")
+    p = []
+
+    # cleaver first: it rises from behind the right shoulder
+    p.append(f'<g transform="translate(1046 528) rotate(15)">{cleaver()}</g>')
+
+    # neck
+    p.append(f'<rect x="936" y="366" width="88" height="66" fill="#0B0B0D"/>')
+
+    # body
+    p.append(f'<path d="{torso}" fill="url(#gBody)"/>')
+    p.append(f'<path d="{torso}" fill="none" stroke="{ORANGE}" stroke-width="2.6" '
+             f'opacity="0.55"/>')
+    # shoulder seam + fold shading
+    p.append('<path d="M 884,456 C 920,520 930,640 926,800" fill="none" '
+             'stroke="#191920" stroke-width="2.4"/>')
+    p.append('<path d="M 1076,456 C 1040,520 1030,640 1034,800" fill="none" '
+             'stroke="#191920" stroke-width="2.4"/>')
+    p.append(f'<path d="M 822,476 C 866,451 900,436 934,424" fill="none" '
+             f'stroke="#FFD9B0" stroke-width="2.6" opacity="0.5"/>')
+    # white under-collar, crossed at the back
+    p.append(f'<path d="M 936,392 L 980,470 L 1024,392" fill="none" '
+             f'stroke="{INK}" stroke-width="7" stroke-linejoin="round" '
+             f'opacity="0.92"/>')
+    p.append(f'<path d="M 944,402 L 980,466 L 1016,402" fill="none" '
+             f'stroke="{ORANGE}" stroke-width="1.6" opacity="0.55"/>')
+
+    # head: solid orange hair mass, shards, rim light
+    p.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{HAIR}" '
+             f'stroke="#8A3404" stroke-width="2"/>')
+    p.append(hair_spikes(cx, cy, rx, ry))
+    p.append(f'<path d="M {cx + rx * 0.34:.0f} {cy - ry * 0.94:.0f} '
+             f'A {rx} {ry} 0 0 1 {cx + rx * 0.99:.0f} {cy + ry * 0.1:.0f}" '
+             f'fill="none" stroke="#FFC48A" stroke-width="2.6" opacity="0.8"/>')
+    p.append(f'<path d="M {cx - rx * 0.5:.0f} {cy + ry * 0.55:.0f} '
+             f'A {rx} {ry} 0 0 0 {cx - rx * 0.98:.0f} {cy - ry * 0.05:.0f}" '
+             f'fill="none" stroke="{ORANGE}" stroke-width="1.6" opacity="0.45"/>')
+    return "".join(p)
+
+
+def hollow_mask(cx, cy, r, opacity=0.1):
+    """Hollow mask watermark: oval, slanted eye slits, crest, teeth."""
+    rx = r * 0.66
+    eye = (f'M {cx - rx * 0.62:.0f} {cy - r * 0.26:.0f} '
+           f'l {rx * 0.44:.0f} {r * 0.14:.0f} l -{rx * 0.1:.0f} {r * 0.19:.0f} '
+           f'l -{rx * 0.4:.0f} -{r * 0.13:.0f} Z')
+    eye2 = (f'M {cx + rx * 0.62:.0f} {cy - r * 0.26:.0f} '
+            f'l -{rx * 0.44:.0f} {r * 0.14:.0f} l {rx * 0.1:.0f} {r * 0.19:.0f} '
+            f'l {rx * 0.4:.0f} -{r * 0.13:.0f} Z')
+    teeth = "".join(
+        f'<path d="M {cx + (i - 1.5) * r * 0.24:.0f} {cy + r * 0.52:.0f} '
+        f'l {r * 0.1:.0f} {r * 0.16:.0f} l {r * 0.1:.0f} -{r * 0.16:.0f}" '
+        f'fill="none" stroke="{INK}" stroke-width="2"/>' for i in range(4))
+    return (f'<g opacity="{opacity}" fill="none" stroke="{INK}" '
+            f'stroke-width="2">'
+            f'<path d="M {cx} {cy - r} C {cx + rx} {cy - r * 0.92:.0f} '
+            f'{cx + rx} {cy + r * 0.3:.0f} {cx + rx * 0.6:.0f} '
+            f'{cy + r * 0.78:.0f} L {cx} {cy + r} '
+            f'L {cx - rx * 0.6:.0f} {cy + r * 0.78:.0f} '
+            f'C {cx - rx} {cy + r * 0.3:.0f} {cx - rx} {cy - r * 0.92:.0f} '
+            f'{cx} {cy - r} Z"/>'
+            f'<path d="{eye}" fill="{INK}" stroke="none"/>'
+            f'<path d="{eye2}" fill="{INK}" stroke="none"/>'
+            f'<path d="M {cx} {cy - r * 0.62:.0f} L {cx} {cy + r * 0.44:.0f}"/>'
+            f'{teeth}</g>')
+
+
 def hero():
     w, h = 1200, 800
     b = [page(w, h, ORANGE)]
 
     # sun / hollow hole
-    b.append(f'<circle cx="946" cy="286" r="292" fill="url(#gSun)" opacity="0.72">'
+    b.append(f'<circle cx="980" cy="296" r="300" fill="url(#gSun)" opacity="0.72">'
              f'<animate attributeName="opacity" values="0.64;0.8;0.64" dur="7s" '
              f'repeatCount="indefinite"/></circle>')
-    b.append(f'<circle cx="946" cy="286" r="286" fill="none" stroke="{ORANGE}" '
+    b.append(f'<circle cx="980" cy="296" r="294" fill="none" stroke="{ORANGE}" '
              f'stroke-width="1" opacity="0.35"/>')
-    b.append(f'<circle cx="946" cy="286" r="112" fill="url(#gHollow)"/>')
-    b.append(f'<circle cx="946" cy="286" r="112" fill="none" stroke="{ORANGE}" '
-             f'stroke-width="1.6" opacity="0.7"/>')
+    b.append(f'<circle cx="980" cy="296" r="148" fill="url(#gHollow)"/>')
+    b.append(f'<circle cx="980" cy="296" r="148" fill="none" stroke="{ORANGE}" '
+             f'stroke-width="1.8" opacity="0.75"/>')
 
     b.append(deco(inklines(700, 40, 1180, 740, 46, 5)))
 
     # reiatsu shockwaves
-    b.append(deco(reiatsu_rings(946, 720, ORANGE, 3, 5.0)))
+    b.append(deco(reiatsu_rings(980, 700, ORANGE, 3, 5.0)))
+
+    # light slashes passing behind the figure
+    for i, yy in enumerate((296, 336)):
+        b.append(f'<rect x="-360" y="{yy}" width="340" height="4" '
+                 f'fill="url(#gBlade)" opacity="0.9">'
+                 f'<animate attributeName="x" values="-360;1320;1320" '
+                 f'keyTimes="0;0.22;1" dur="{7 + i * 1.5}s" begin="{i * 0.6}s" '
+                 f'repeatCount="indefinite"/></rect>')
+
+    # reiatsu aura behind the body, so the silhouette reads below the sun
+    b.append(f'<ellipse cx="980" cy="610" rx="330" ry="270" fill="url(#gRei)" '
+             f'opacity="0.22">'
+             f'<animate attributeName="opacity" values="0.15;0.28;0.15" dur="6s" '
+             f'repeatCount="indefinite"/></ellipse>')
+
+    # the substitute shinigami
+    b.append(fighter())
 
     # hell butterfly crossing the page
     b.append(deco(
@@ -423,16 +573,6 @@ def hero():
         f'<animateMotion dur="19s" repeatCount="indefinite" rotate="auto" '
         f'path="M 1160 96 C 980 40 900 210 760 168 C 620 126 520 268 360 232 '
         f'C 220 200 140 274 30 240"/></g>'))
-
-    # katana
-    b.append(f'<g transform="translate(374 664) rotate(41)">{katana()}</g>')
-
-    # slash sweep
-    b.append(f'<g transform="rotate(41 600 400)">'
-             f'<rect y="392" width="300" height="5" fill="url(#gBlade)">'
-             f'<animate attributeName="x" values="-420;1330;1330" '
-             f'keyTimes="0;0.24;1" dur="8s" repeatCount="indefinite"/>'
-             f'</rect></g>')
 
     # copy block
     b.append(T(88, 132, "BLEACH // CHAPTER 01", 12.5, ORANGE, 6, "700"))
@@ -465,14 +605,8 @@ def hero():
     b.append(T(196, 700, "COMMITS", 12, DIM, 4, "600"))
     b.append(T(320, 700, "SEAT 16", 12, DIM, 4, "600"))
 
-    # vertical 卍解
-    b.append(deco(T(1138, 640, "\u5345", 54, ORANGE, 0, "700", anchor="middle",
-                    family=JP, opacity=0.9)
-                  + T(1138, 720, "\u89e3", 54, ORANGE, 0, "700", anchor="middle",
-                      family=JP, opacity=0.9)))
-
     b.append(T(88, 766, "PLAYER " + PLAYER["handle"].upper(), 11, DIM, 3))
-    b.append(T(1112, 766, "STATUS: ONLINE", 11, ORANGE, 3, anchor="end"))
+    b.append(T(690, 766, "STATUS: ONLINE", 11, ORANGE, 3, anchor="end"))
 
     return doc(w, h, "".join(b))
 
@@ -617,6 +751,8 @@ def mission():
     b.append(level_meta(w, "\u5345\u89e3", "BANKAI " + DOT + " CURRENT OBJECTIVE", RED))
     b.append(T(1160, 74, "WHAT I AM DOING NOW", 10, DIM, 2.4, anchor="end"))
 
+    b.append(deco(hollow_mask(1040, 194, 96, 0.12)))
+
     b.append(f'<ellipse cx="600" cy="196" rx="430" ry="126" fill="url(#gRei)" '
              f'opacity="0.28">'
              f'<animate attributeName="opacity" values="0.16;0.4;0.16" dur="6s" '
@@ -692,6 +828,10 @@ def footer():
     b = [page(w, h, ORANGE, halftone="bottom")]
 
     b.append(deco(reiatsu_rings(600, 250, ORANGE, 3, 6.0)))
+
+    # zanpakuto planted at the edge
+    b.append(deco(f'<g transform="translate(1064 392) scale(0.5) rotate(8)">'
+                  f'{katana()}</g>'))
 
     # bankai flash
     b.append(f'<rect width="{w}" height="{h}" fill="#FFFFFF" opacity="0">'

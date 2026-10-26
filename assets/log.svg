@@ -48,6 +48,11 @@
     <stop offset="0.5" stop-color="#FF6A00" stop-opacity="0.55"/>
     <stop offset="1" stop-color="#FF6A00" stop-opacity="0"/>
   </linearGradient>
+  <linearGradient id="gBody" x1="0" y1="0" x2="0.25" y2="1">
+    <stop offset="0" stop-color="#23232B"/>
+    <stop offset="0.45" stop-color="#1A1A21"/>
+    <stop offset="1" stop-color="#121216"/>
+  </linearGradient>
   <linearGradient id="gFadeUp" x1="0" y1="1" x2="0" y2="0">
     <stop offset="0" stop-color="#060607" stop-opacity="1"/>
     <stop offset="1" stop-color="#060607" stop-opacity="0"/>

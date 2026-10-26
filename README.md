@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" width="100%" alt="Bleach-style title page on black: an orange sun with a hollow hole punched through it, a zanpakuto lying diagonally across the frame, a hell butterfly crossing the top, reiatsu shockwaves. MAHESH in heavy white type, 死神代行 (substitute shinigami), BLEACH chapter 01. Reiatsu: 123 commits.">
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" width="100%" alt="Bleach-style title page on black: a substitute shinigami seen from behind - spiky orange hair framed inside the hollow hole of a giant orange sun, black shihakusho with a white crossed collar, a huge cleaver zanpakuto rising past his shoulder. A hell butterfly crosses the top, reiatsu shockwaves roll off the bottom. MAHESH in heavy white type, 死神代行, BLEACH chapter 01. Reiatsu: 123 commits.">
 
 <img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/player.svg" width="100%" alt="Shinigami file panel: name Mahesh S, role student developer, zanpakuto Python, specialty AI, computer vision and web, current mission build useful software. Reiatsu 123 commits, seat 16. 6 public repos, 11 languages, 422 passing tests.">
 
@@ -18,7 +18,7 @@
 
 <img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/log.svg" width="100%" alt="記録 system log: recent pushes to Mark-42, nemotron-data-forge, iTantraMessage, kavach and Portfolio. 勲章 honours: SIH 2026 submission, 422 passing tests, offline release gate.">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/footer.svg" width="100%" alt="卍解, the story continues. Keep building. Keep learning. Keep leveling up. Player: Mahesh, system status always evolving.">
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/footer.svg" width="100%" alt="卍解, the story continues, with a zanpakuto planted beside the text. Keep building. Keep learning. Keep leveling up. Player: Mahesh, system status always evolving.">
 
 </div>
 

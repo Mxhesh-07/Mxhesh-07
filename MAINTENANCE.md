@@ -67,13 +67,13 @@ runs inside `<img>` because it is declarative SVG, not script. Current inventory
 
 | Panel | Motion |
 | :-- | :-- |
-| hero | sliding slash sweep, katana gleam up the blade, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
+| hero | two light slashes sweeping behind the figure, breathing reiatsu aura, hell butterfly on an `animateMotion` path, three reiatsu rings, pulsing sun and detection dot |
 | player | breathing reiatsu aura behind the commit count |
 | abilities | each release's reiatsu underline charges and fades, staggered |
 | quests | a sheen sweeps across the panel, clipped to its cut corners |
 | mission | aura pulse, objective rule draws itself left to right |
 | log | sheen sweep across the log panel, blinking push beacon |
-| footer | 卍解 draws its stroke, three reiatsu rings, white bankai flash every 7s |
+| footer | 卍解 draws its stroke, three reiatsu rings, a gleam runs up the planted zanpakuto, white bankai flash every 7s |
 
 Tuning knobs are the `dur`, `begin` and `values` attributes in the generator —
 keep `repeatCount="indefinite"` so the profile never freezes mid-animation. Keep
@@ -94,6 +94,27 @@ means only what GitHub really supports:
 If a future request is "make it react to the mouse", the honest answer is that
 GitHub cannot do it — the closest upgrade is more collapsibles or a linked
 landing page.
+
+## The character
+
+The hero figure is drawn from scratch in `fighter()` — an original vector
+homage, not traced from a frame. Back view, cropped at the waist, so there is no
+face to get wrong: spiky orange hair (`HAIR` / `HAIR_D`), black shihakusho with
+the white crossed under-collar, and a giant cleaver rising from behind the right
+shoulder (`cleaver()`, positioned by the `translate(...) rotate(15)` in that
+function).
+
+Geometry knobs, top to bottom:
+
+- head centre `cx, cy = 980, 300` and radii `rx, ry = 66, 80` — the head is sized
+  to sit inside the hollow hole (`r=148`); move either and the framing breaks
+- `torso` path — the shoulder curve and the crop width at y=800
+- `hair_spikes()` — spike count, length range and the darker strands
+
+The body fills with `gBody` (a near-black gradient) rather than flat black, so
+the silhouette stays visible below the sun where the page is already black.
+If the figure reads too heavy, raise the bottom stop of `gBody` or shrink
+`ry`; if it reads as a blob, lengthen the spikes and raise the rim-light opacity.
 
 ## Placeholders left to replace
 
