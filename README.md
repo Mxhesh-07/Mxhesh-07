@@ -1,23 +1,39 @@
 <div align="center">
 
-<a href="https://portfolio-pi-self-10.vercel.app">
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" alt="System window: MAHESH S, Shadow Coder and Python developer. Level 16, rank B. Six dungeons, 123 commits, 422 tests passing, 11 languages." width="100%">
-</a>
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/hero.svg" width="100%" alt="Cinematic hero: MAHESH, Shadow Developer, over a rotating magic circle. Every developer starts at level 1. System initialized.">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/status.svg" alt="Status window. Name Mahesh S, job Python developer, class Shadow Coder, guild Shree Devi Institute, rank B. HP 78 of 100, MP 64 of 100, EXP 123 of 128. Attributes: Python 92, computer vision 78, backend 74, mobile 61, systems and CUDA 55." width="100%">
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/player.svg" width="100%" alt="Player status: Mahesh, class Developer, rank E to S, specialization AI, Python and web. 123 commits, 6 public repos, 11 languages, 422 passing tests.">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/quests.svg" alt="Quest log. KAVACH, rank S, 90 percent, in progress. Mark-42, rank S, 85 percent, in progress. iTantraMessage, rank A, 70 percent, one boss left. nemotron-data-forge, rank A, 100 percent, cleared." width="100%">
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/abilities.svg" width="100%" alt="Hunter abilities. Core: Python, JavaScript, HTML, CSS. AI and vision: AI API integration, computer vision, voice assistants, automation. Tooling: Git, GitHub, VS Code, FastAPI, OpenCV, Docker.">
 
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/equipment.svg" alt="Equipment. Languages: Python, Kotlin, C++, SQL, JavaScript. Backend: Django, FastAPI, REST APIs, PostgreSQL, SQLite. Vision and AI: OpenCV, PyTorch, Whisper, Playwright, TensorRT." width="100%">
+<a href="https://github.com/Mxhesh-07/Mark-42"><img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/quest-1-mark-42.svg" width="100%" alt="Quest 01, S rank, active: Mark-42, desktop AI assistant. Gemini Live audio, planner and executor tool loop, screen OCR, browser control."></a>
 
-<a href="https://portfolio-pi-self-10.vercel.app">
-<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/footer.svg" alt="ARISE. The system awaits your next dungeon." width="100%">
-</a>
+<a href="https://github.com/Mxhesh-07/kavach"><img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/quest-2-kavach.svg" width="100%" alt="Quest 02, S rank, active: KAVACH, border video analytics. Smart India Hackathon 2026, problem statement 26187. C++20, CUDA, TensorRT, FastAPI."></a>
+
+<a href="https://github.com/Mxhesh-07/iTantraMessage"><img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/quest-3-itantramessage.svg" width="100%" alt="Quest 03, A rank, one boss left: iTantraMessage, offline Bluetooth messenger. No INTERNET permission, 422 tests passing. Kotlin, Android, RFCOMM, Whisper."></a>
+
+<a href="https://github.com/Mxhesh-07/nemotron-data-forge"><img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/quest-4-nemotron-data-forge.svg" width="100%" alt="Quest 04, A rank, cleared: nemotron-data-forge, dataset pipeline. Graded, de-duplicated JSONL. Python, Streamlit, Tavily."></a>
+
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/mission.svg" width="100%" alt="Current objective: transform ideas into working software. Sharpen AI and Python, ship practical software, learn in public.">
+
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/log.svg" width="100%" alt="System log: recent pushes to Mark-42, nemotron-data-forge, iTantraMessage, kavach and Portfolio. Rewards: SIH 2026 submission, 422 passing tests, offline release gate.">
+
+<img src="https://raw.githubusercontent.com/Mxhesh-07/Mxhesh-07/main/assets/footer.svg" width="100%" alt="The journey doesn't end here. Keep building. Keep learning. Keep leveling up. Player: Mahesh. System status: always evolving.">
 
 </div>
 
-**Currently:** final-year BCA, looking for a software or AI role. Shipping [KAVACH](https://github.com/Mxhesh-07/kavach), getting [Mark-42](https://github.com/Mxhesh-07/Mark-42) through a full day of real use, and pushing [iTantraMessage](https://github.com/Mxhesh-07/iTantraMessage) from "handshake works" to a message delivered across two handsets.
+### Active quests
 
-**Connect** — [Portfolio](https://portfolio-pi-self-10.vercel.app) · [LinkedIn](https://www.linkedin.com/in/mahesh-s-6ab335357) · [mxhesh.dev@gmail.com](mailto:mxhesh.dev@gmail.com)
+| Quest | Repository | Stack | Status |
+| :-- | :-- | :-- | :-- |
+| **Mark-42** | [Mxhesh-07/Mark-42](https://github.com/Mxhesh-07/Mark-42) | Python · Gemini Live · Playwright · OpenGL | Active |
+| **KAVACH** | [Mxhesh-07/kavach](https://github.com/Mxhesh-07/kavach) | C++20 · CUDA · TensorRT · FastAPI | Active |
+| **iTantraMessage** | [Mxhesh-07/iTantraMessage](https://github.com/Mxhesh-07/iTantraMessage) | Kotlin · Android · RFCOMM · Whisper | One boss left |
+| **nemotron-data-forge** | [Mxhesh-07/nemotron-data-forge](https://github.com/Mxhesh-07/nemotron-data-forge) | Python · Streamlit · Tavily | Cleared |
+| **Portfolio** | [portfolio-pi-self-10.vercel.app](https://portfolio-pi-self-10.vercel.app) | HTML · CSS · JavaScript | Live |
 
-<sub>Levels, EXP and difficulty ranks are a game layer over real data: 123 commits and 6 public repos read from the GitHub API, 422 passing tests from the iTantraMessage suite. Attribute bars are self-assessed; quest percentages are self-reported. Artwork is hand-written SVG in <code>assets/</code>, generated by <code>build.py</code> — no third-party profile services, no tracking pixels.</sub>
+### Connection established
+
+[Portfolio](https://portfolio-pi-self-10.vercel.app) · [LinkedIn](https://www.linkedin.com/in/mahesh-s-6ab335357) · [mxhesh.dev@gmail.com](mailto:mxhesh.dev@gmail.com)
+
+<sub>Every figure on this page is real: 123 commits, 6 public repositories and 11 languages read from the GitHub API, and 422 passing tests taken from the iTantraMessage suite. Difficulty ranks and the E→S progression are a thematic layer, not certifications. There are no skill percentages — the abilities list only what the repositories actually use. Artwork is original SVG generated by <code>build.py</code>; no third-party profile cards, no tracking pixels.</sub>

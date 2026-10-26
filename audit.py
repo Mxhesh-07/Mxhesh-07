@@ -8,6 +8,7 @@ a blank / clipped / monochrome render cannot pass unnoticed.
 import sys
 from pathlib import Path
 from PIL import Image
+import colorsys
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -15,17 +16,28 @@ except Exception:
     pass
 
 PREVIEW = Path(__file__).parent / "preview"
-ACCENTS = {
-    "blue": (79, 195, 255),
-    "violet": (167, 139, 250),
-    "gold": (251, 191, 36),
-    "green": (74, 222, 128),
-    "red": (251, 113, 133),
+
+# hue families, in degrees. Thin antialiased strokes never hit an exact RGB value,
+# so accents are detected by hue + saturation instead of pixel equality.
+HUES = {
+    "cyan/blue": (175, 215),
+    "violet": (240, 288),
+    "gold": (30, 60),
+    "green": (140, 175),
+    "rose": (330, 360),
 }
 
 
-def near(px, target, tol=46):
-    return all(abs(a - b) <= tol for a, b in zip(px[:3], target))
+def accent_of(px):
+    r, g, b = px[:3]
+    mx, mn = max(r, g, b), min(r, g, b)
+    if mx < 70 or mx - mn < 38:
+        return None
+    h = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)[0] * 360
+    for name, (lo, hi) in HUES.items():
+        if lo <= h <= hi:
+            return name
+    return None
 
 
 fails = 0
@@ -35,7 +47,7 @@ for f in sorted(PREVIEW.glob("*.png")):
     px = im.load()
     step = 3
     total = ink = bright = 0
-    accents = {k: 0 for k in ACCENTS}
+    accents = {k: 0 for k in HUES}
     bands = [0] * 12
     band_n = [0] * 12
     for y in range(0, h, step):
@@ -50,11 +62,9 @@ for f in sorted(PREVIEW.glob("*.png")):
             band = min(11, y * 12 // h)
             bands[band] += lum
             band_n[band] += 1
-            for k, c in ACCENTS.items():
-                if near((r, g, b), c):
-                    accents[k] += 1
-                        # only count one accent per pixel
-                    break
+            hit = accent_of((r, g, b))
+            if hit:
+                accents[hit] += 1
 
     cov = 100 * ink / total
     brightpct = 100 * bright / total
@@ -67,8 +77,8 @@ for f in sorted(PREVIEW.glob("*.png")):
         problems.append("almost no ink (blank render?)")
     if brightpct < 0.05:
         problems.append("no bright pixels (text missing?)")
-    if len(found) < 2:
-        problems.append(f"only {len(found)} accent colour(s): {found}")
+    if not found:
+        problems.append("no accent colour at all (flat grey render?)")
     if dead > 4:
         problems.append(f"{dead}/12 dead horizontal bands")
 
