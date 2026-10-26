@@ -106,15 +106,18 @@ mask-local, origin at the centre of the face:
 
 | Layer | Coordinates (local) |
 | :-- | :-- |
-| plate | egg outline, `-134..134 x`, `-176..200 y`, `url(#gMask)` white→bone gradient |
-| jaw shading | crescent along the right edge, `78..134 x`, `#8A847A` at 26% |
-| eye sockets | twisted quads `-106..-19 x` and `19..106 x`, `-88..-16 y`, `#08080A` |
-| socket embers | `-62,-48` and `62,-48`, `r=4`, `RED`, 3.2 s opacity pulse |
-| nose slits | two wedges at `±17,4` down to `±7,24` |
-| grin | `-92..92 x`, `58..138 y`, seven white bars clipped to it = teeth |
-| war paint | two red stripes, `-100..-54 x`, `-2..42 y` |
-| cracks | brow `-8,-176` to `-4,-48`, cheek `62,-140` to `58,-64`, temple |
-| rim light | 3 px white along the lit left edge |
+| plate | egg outline, `-128..128 x`, `-178..200 y`, `url(#gMask)` white→bone gradient |
+| form | `url(#gBoneShade)` radial light from upper left, `#7C766B` shadow side, `fBone` turbulence grain at 9% |
+| brow shelf | `gBrow` band, `-120..-28 y`, 32% black |
+| jaw shadow | `gJaw` band, `120..210 y`, 30% black |
+| eye sockets | swept slits `-122..-32 x` and `32..122 x`, `-88..-40 y`, `#07070A` |
+| socket embers | curved line `±104,-60` to `±42,-60`, `RED`, 3.6 s opacity pulse |
+| engraved marks | three tapered black slashes per side, `#241F19` at 50% |
+| nose slits | angled lines `±20,26` to `±10,-2` |
+| grin | `-92..92 x`, `56..150 y`, nine fangs above and eight below, clipped to it |
+| chips | `112,-108` and `-108,96` on the edge, dark bite plus a lit lip |
+| cracks | brow `-10,-178` to `-2,-86`, temple `96,-98` to `104,-58`, jaw |
+| rim light | 3.6 px white along the lit left edge |
 
 The mask sits on the orange sun and overlaps the hollow hole, so it reads as
 white-on-black at the top and white-on-orange at the chin. Keep it inside the

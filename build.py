@@ -223,11 +223,32 @@ def defs():
     <stop offset="0.5" stop-color="{ORANGE}" stop-opacity="0.55"/>
     <stop offset="1" stop-color="{ORANGE}" stop-opacity="0"/>
   </linearGradient>
-  <linearGradient id="gMask" x1="0.1" y1="0" x2="0.9" y2="1">
+  <linearGradient id="gMask" x1="0.15" y1="0" x2="0.85" y2="1">
     <stop offset="0" stop-color="#FFFFFF"/>
-    <stop offset="0.45" stop-color="#F2EEE6"/>
-    <stop offset="1" stop-color="#BDB7AC"/>
+    <stop offset="0.4" stop-color="#F4F0E7"/>
+    <stop offset="0.75" stop-color="#DDD6C8"/>
+    <stop offset="1" stop-color="#B4AC9E"/>
   </linearGradient>
+  <radialGradient id="gBoneShade" cx="0.32" cy="0.2" r="0.95">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.5"/>
+    <stop offset="0.42" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="1" stop-color="#2A2620" stop-opacity="0.5"/>
+  </radialGradient>
+  <linearGradient id="gBrow" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="0.55" stop-color="#000000" stop-opacity="0.32"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="gJaw" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="0.7" stop-color="#000000" stop-opacity="0.3"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0.1"/>
+  </linearGradient>
+  <filter id="fBone" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3"
+                  seed="11"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
   <linearGradient id="gBody" x1="0" y1="0" x2="0.25" y2="1">
     <stop offset="0" stop-color="#23232B"/>
     <stop offset="0.45" stop-color="#1A1A21"/>
@@ -439,66 +460,116 @@ def cleaver():
 
 
 def hollow_head():
-    """A hollow mask, bone-white and cracked - the one Bleach character element
-    that survives being drawn as vector geometry."""
+    """A hollow mask, carved rather than drawn: bone grain, a brow shelf,
+    interlocking fangs. The one Bleach element that survives vector geometry."""
     p = ['<g transform="translate(980 320) rotate(-6)">']
 
-    # warm halo, so the mask separates from the sun
-    p.append(f'<ellipse cx="0" cy="6" rx="152" ry="198" fill="{ORANGE}" '
-             f'opacity="0.14" filter="url(#fSoft)"/>')
+    plate = ("M 0,-178 C 58,-178 104,-152 120,-100 C 130,-72 132,-54 128,-30 "
+             "C 122,26 100,96 52,150 C 32,172 12,192 0,200 "
+             "C -12,192 -32,172 -52,150 C -100,96 -122,26 -128,-30 "
+             "C -132,-54 -130,-72 -120,-100 C -104,-152 -58,-178 0,-178 Z")
+    pid = uid("plate")
+    mid = uid("mouth")
 
-    shape = ("M 0,-176 C 86,-176 134,-118 134,-38 C 134,44 96,126 38,176 "
-             "C 18,192 4,200 0,200 C -4,200 -18,192 -38,176 C -96,126 -134,44 "
-             "-134,-38 C -134,-118 -86,-176 0,-176 Z")
-    p.append(f'<path d="{shape}" fill="url(#gMask)" stroke="#0A0A0C" '
-             f'stroke-width="4"/>')
-    # jaw / right-side shading
-    p.append('<path d="M 44,-172 C 98,-152 134,-96 134,-38 C 134,44 96,126 '
-             '38,176 C 62,118 78,42 78,-40 C 78,-104 62,-152 44,-172 Z" '
-             'fill="#8A847A" opacity="0.26"/>')
+    # warm halo, then a contact shadow, so it sits on the sun instead of floating
+    p.append(f'<ellipse cx="4" cy="8" rx="150" ry="196" fill="{ORANGE}" '
+             f'opacity="0.12" filter="url(#fSoft)"/>')
+    p.append('<ellipse cx="12" cy="198" rx="96" ry="24" fill="#000000" '
+             'opacity="0.5" filter="url(#fSoft)"/>')
+    p.append(f'<clipPath id="{pid}"><path d="{plate}"/></clipPath>')
+    p.append(f'<path d="{plate}" fill="url(#gMask)"/>')
 
-    # eye sockets
-    p.append('<path d="M -106,-62 L -34,-88 L -19,-32 L -95,-16 Z" '
-             'fill="#08080A"/>')
-    p.append('<path d="M 106,-62 L 34,-88 L 19,-32 L 95,-16 Z" fill="#08080A"/>')
-    for ex in (-62, 62):
-        p.append(f'<circle cx="{ex}" cy="-48" r="4" fill="{RED}" '
-                 f'filter="url(#fGlow)">'
-                 f'<animate attributeName="opacity" values="0.95;0.15;0.95" '
-                 f'dur="3.2s" repeatCount="indefinite"/></circle>')
+    # form: big soft light from upper left, shade to lower right, brow shelf,
+    # jaw shadow, bone grain. All of it clipped to the plate.
+    p.append(f'<g clip-path="url(#{pid})">')
+    p.append('<rect x="-140" y="-186" width="280" height="400" '
+             'fill="url(#gBoneShade)"/>')
+    p.append('<rect x="-140" y="-186" width="280" height="400" '
+             'filter="url(#fBone)" opacity="0.09"/>')
+    p.append('<rect x="-140" y="-120" width="280" height="92" '
+             'fill="url(#gBrow)"/>')
+    p.append('<rect x="-140" y="120" width="280" height="90" '
+             'fill="url(#gJaw)"/>')
+    p.append('<path d="M 46,-172 C 100,-150 132,-94 128,-30 C 122,26 100,96 '
+             '52,150 C 72,94 86,28 84,-30 C 82,-100 66,-150 46,-172 Z" '
+             'fill="#6E675C" opacity="0.34"/>')
+    for d, o in (("M -94,-92 C -62,-34 -42,34 -16,124", 0.45),
+                 ("M 66,-104 C 58,-34 52,44 38,124", 0.3),
+                 ("M -44,152 C -22,124 -2,114 22,120", 0.35)):
+        p.append(f'<path d="{d}" fill="none" stroke="#8C8478" '
+                 f'stroke-width="1.1" opacity="{o}"/>')
+    p.append('<path d="M -48,-174 C -100,-152 -122,-102 -128,-42 '
+             'C -130,8 -118,68 -96,110" fill="none" stroke="#FFFFFF" '
+             'stroke-width="3.6" opacity="0.5"/>')
+    p.append("</g>")
+
+    p.append(f'<path d="{plate}" fill="none" stroke="#0B0B0D" '
+             f'stroke-width="3"/>')
+
+    # sockets: swept slits, sharp at both ends
+    p.append('<path d="M -122,-64 C -96,-86 -58,-88 -32,-64 '
+             'C -50,-44 -84,-40 -108,-48 Z" fill="#07070A"/>')
+    p.append('<path d="M 122,-64 C 96,-86 58,-88 32,-64 '
+             'C 50,-44 84,-40 108,-48 Z" fill="#07070A"/>')
+    for sx in (-1, 1):
+        p.append(f'<path d="M {sx * 104},-60 C {sx * 82},-70 {sx * 58},-70 '
+                 f'{sx * 42},-60" fill="none" stroke="{RED}" '
+                 f'stroke-width="2.6" stroke-linecap="round" '
+                 f'filter="url(#fGlow)" opacity="0.9">'
+                 f'<animate attributeName="opacity" values="0.9;0.15;0.9" '
+                 f'dur="3.6s" repeatCount="indefinite"/></path>')
+
+    # engraved marks sweeping up off each socket (black, not war paint)
+    for sx in (-1, 1):
+        for bx, by, tx, ty in ((100, -60, 112, -104), (80, -66, 92, -114),
+                               (60, -70, 64, -116)):
+            p.append(f'<path d="M {sx * bx - 6},{by} L {sx * bx + 6},{by} '
+                     f'L {sx * tx},{ty} Z" fill="#241F19" opacity="0.5"/>')
 
     # nose slits
-    p.append('<path d="M -17,4 L -3,0 L -7,24 Z" fill="#08080A" opacity="0.85"/>')
-    p.append('<path d="M 17,4 L 3,0 L 7,24 Z" fill="#08080A" opacity="0.85"/>')
+    p.append('<path d="M -20,26 L -10,-2" stroke="#12100E" '
+             'stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>')
+    p.append('<path d="M 20,26 L 10,-2" stroke="#12100E" '
+             'stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>')
 
-    # grin, teeth clipped inside it
-    cid = uid("mouth")
-    mouth = "M -92,58 Q 0,86 92,58 L 84,104 Q 0,138 -84,104 Z"
-    p.append(f'<clipPath id="{cid}"><path d="{mouth}"/></clipPath>')
-    p.append(f'<path d="{mouth}" fill="#08080A"/>')
-    for i in range(7):
-        x = -78 + i * 26
-        p.append(f'<rect x="{x}" y="50" width="13" height="92" fill="#F7F5EF" '
-                 f'clip-path="url(#{cid})" opacity="0.9"/>')
-    p.append(f'<path d="{mouth}" fill="none" stroke="#0A0A0C" stroke-width="3"/>')
+    # grin: black void, bone fangs biting into it from both jaws
+    mouth = "M -92,56 Q 0,74 92,56 L 84,130 Q 0,150 -84,130 Z"
+    p.append(f'<path d="{mouth}" fill="#07070A"/>')
+    p.append(f'<clipPath id="{mid}"><path d="{mouth}"/></clipPath>')
+    p.append(f'<g clip-path="url(#{mid})">')
+    # a packed row of small fangs on each lip, tips stopping short of each other
+    # so a black line of gritted jaw survives between them
+    for i in range(9):
+        x = -64 + i * 16
+        tip = 90 - (4 if i % 2 else 0)
+        p.append(f'<path d="M {x - 7},48 L {x + 7},48 L {x},{tip} Z" '
+                 f'fill="#EFEAE0"/>')
+    for i in range(8):
+        x = -56 + i * 16
+        tip = 114 + (3 if i % 2 else 0)
+        p.append(f'<path d="M {x - 7},152 L {x + 7},152 L {x},{tip} Z" '
+                 f'fill="#E2DCCF"/>')
+    p.append("</g>")
+    p.append(f'<path d="{mouth}" fill="none" stroke="#0B0B0D" '
+             f'stroke-width="2.6"/>')
 
-    # red war paint on the cheek
-    p.append(f'<path d="M -100,6 L -56,-2 L -54,15 L -98,23 Z" fill="{RED}" '
-             f'opacity="0.8"/>')
-    p.append(f'<path d="M -94,30 L -56,23 L -55,35 L -92,42 Z" fill="{RED}" '
-             f'opacity="0.5"/>')
+    # chipped edges: dark bite + lit lip on the inner side
+    p.append('<path d="M 112,-108 L 126,-92 L 122,-70 Z" fill="#1A1714" '
+             'opacity="0.55"/>')
+    p.append('<path d="M 112,-108 L 126,-92" fill="none" stroke="#FFFFFF" '
+             'stroke-width="1.6" opacity="0.45"/>')
+    p.append('<path d="M -108,96 L -120,104 L -112,118 Z" fill="#1A1714" '
+             'opacity="0.45"/>')
 
-    # cracks
-    p.append('<path d="M -8,-176 L 4,-120 L -12,-84 L -4,-48" fill="none" '
-             'stroke="#6B675F" stroke-width="2.2"/>')
-    p.append('<path d="M 62,-140 L 44,-96 L 58,-64" fill="none" '
-             'stroke="#6B675F" stroke-width="1.8"/>')
-    p.append('<path d="M -70,-120 L -58,-92 L -70,-70" fill="none" '
-             'stroke="#6B675F" stroke-width="1.6" opacity="0.8"/>')
-
-    # rim light on the lit edge
-    p.append('<path d="M -60,-168 C -110,-146 -134,-96 -134,-38" fill="none" '
-             'stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>')
+    # cracks, thicker where they start
+    p.append('<path d="M -10,-178 L 0,-142 L -12,-114 L -2,-86" fill="none" '
+             'stroke="#57514A" stroke-width="2.4"/>')
+    p.append('<path d="M 0,-142 L 13,-130" fill="none" stroke="#57514A" '
+             'stroke-width="1.4"/>')
+    p.append('<path d="M 96,-98 L 112,-80 L 104,-58" fill="none" '
+             'stroke="#57514A" stroke-width="1.8"/>')
+    p.append('<path d="M -80,122 L -60,140 L -46,132" fill="none" '
+             'stroke="#57514A" stroke-width="1.5" opacity="0.85"/>')
 
     p.append("</g>")
     return "".join(p)
